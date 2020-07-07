@@ -9,17 +9,20 @@ namespace NoteApp
 	/// <summary>
 	/// Класс, хранящий список объектов класса Note
 	/// </summary>
-	class Project
+	public class Project
 	{
-		/// <summary>
-		/// Список объекта класса Note
-		/// </summary>
-		private List<Note> _noteList;
-
 		/// <summary>
 		/// Устанавливает и возвращает список объектов класса Note
 		/// </summary>
 		public List<Note> NoteList { get; set; }
+
+		/// <summary>
+		/// Создает новый список, при создании объекта класса Project
+		/// </summary>
+		public Project()
+		{
+			NoteList = new List<Note>();
+		}
 
 	}
 }

@@ -9,7 +9,7 @@ namespace NoteApp
     /// <summary>
     /// Перечисление, хранящее информацию о категориях заметок
     /// </summary>
-    enum NoteCategory
+    public enum NoteCategory
     {
         /// <summary>
         /// Категория заметок "Документы"

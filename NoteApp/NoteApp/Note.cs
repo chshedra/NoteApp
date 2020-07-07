@@ -10,7 +10,7 @@ namespace NoteApp
     /// Класс, хранящий информацию о названии, тексте, категории, 
     /// времени создания и времени последнего изменения заметки
     /// </summary>
-    class Note : ICloneable
+    public class Note : ICloneable
     {
         /// <summary>
         /// Название заметки
@@ -50,7 +50,7 @@ namespace NoteApp
             }
             set
             {
-                if(_title.Length > 50)
+                if (value.Length > 50)
                 {
                     throw new ArgumentException("Размер имени заметки должен быть менее 50 символов. " +
                         "Текущий размер:" + value);
@@ -137,6 +137,8 @@ namespace NoteApp
             Title = title;
             NoteText = NoteText;
             Category = category;
+            CreationTime = DateTime.Now;
+            LastChangeTime = DateTime.Now;
         }
     }
 }

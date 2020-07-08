@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace NoteApp
 {
     /// <summary>
-    /// Класс, хранящий информацию о названии, тексте, категории, 
+    /// Класс <see cref="Note"/>, хранящий информацию о названии, тексте, категории, 
     /// времени создания и времени последнего изменения заметки
     /// </summary>
     public class Note : ICloneable
@@ -29,24 +31,15 @@ namespace NoteApp
         /// </summary>
         private NoteCategory _category;
 
-        /// <summary>
-        /// Время последнего изменения заметки
-        /// </summary>
-        private DateTime _lastChangeTime;
-
-        /// <summary>
-        /// Время создания заметки
-        /// </summary>
-        private DateTime _creationTime;
 
         /// <summary>
         /// Возвращает и задает название заметки. Размер названия не более 50 символов
         /// </summary>
-        public string Title 
+        public string Title
         {
             get
             {
-                return _title; 
+                return _title;
             }
             set
             {
@@ -57,8 +50,8 @@ namespace NoteApp
                 }
                 else
                 {
+                    LastChangeTime = DateTime.Now;
                     _title = value;
-                    _lastChangeTime = DateTime.Now;
                 }
 
             }
@@ -67,8 +60,8 @@ namespace NoteApp
         /// <summary>
         ///  Возвращает и задает категорию заметки
         /// </summary>
-        public NoteCategory Category 
-        { 
+        public NoteCategory Category
+        {
             get
             {
                 return _category;
@@ -76,7 +69,7 @@ namespace NoteApp
             set
             {
                 _category = value;
-                _lastChangeTime = DateTime.Now;
+                LastChangeTime = DateTime.Now;
             }
         }
 
@@ -93,28 +86,20 @@ namespace NoteApp
             set
             {
                 _noteText = value;
-                _lastChangeTime = DateTime.Now;
+                LastChangeTime = DateTime.Now;
             }
         }
 
         /// <summary>
         ///  Возвращает время создания заметки
         /// </summary>
-        public DateTime CreationTime
-        {
-            get { return _creationTime; }
- 
-            private set
-            {
-                _creationTime = DateTime.Now;
-
-            }
-        }
+        public DateTime CreationTime { get; set; }
 
         /// <summary>
         ///  Возвращает время последнего изменения заметки
         /// </summary>
-        public DateTime LastChangeTime { get; private set; }
+        [field: NonSerialized]
+        public DateTime LastChangeTime { get; set; }
 
         /// <summary>
         /// Метод, создающий копию объекта класса
@@ -138,7 +123,6 @@ namespace NoteApp
             NoteText = NoteText;
             Category = category;
             CreationTime = DateTime.Now;
-            LastChangeTime = DateTime.Now;
         }
     }
 }

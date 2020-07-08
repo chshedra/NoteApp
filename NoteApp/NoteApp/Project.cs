@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NoteApp
 {
 	/// <summary>
-	/// Класс, хранящий список объектов класса Note
+	/// Класс <see cref="Project"/>, хранящий список объектов класса Note
 	/// </summary>
 	public class Project
 	{

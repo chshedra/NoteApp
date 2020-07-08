@@ -9,21 +9,28 @@ using System.Threading.Tasks;
 namespace NoteApp
 {
 	/// <summary>
-	/// Класс, реализующий метод для сохранения объекта класса Project в файл
+	/// Класс <see cref="ProjectManager"/>, реализующий метод для сохранения объекта класса Project в файл
 	/// </summary>
 	public static class ProjectManager
 	{
-		static private readonly string pathName = "...\\My Documents\\NoteApp.notes";
+		/// <summary>
+		/// Хранит путь к файлу для записи
+		/// </summary>
+		 private static readonly string _defaultPath =
+			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp.note";
+
 
 		/// <summary>
 		/// Метод, сохраняющий объекты класса Note
 		/// </summary>
-		static public void SaveToFile(Note note)
+		public static void SaveToFile(Note note, string filename)
 		{
+			filename = File.Exists(filename) ? filename : _defaultPath;
+
 			JsonSerializer serializer = new JsonSerializer();
-			using (StreamWriter sw = new StreamWriter(pathName))
+			using (StreamWriter sw = new StreamWriter(filename))
 			using (JsonWriter writer = new JsonTextWriter(sw))
-			{
+			{ 
 				serializer.Serialize(writer, note);
 			}
 		}
@@ -31,16 +38,22 @@ namespace NoteApp
 		/// <summary>
 		/// Метод, загружающий объекты класса Note
 		/// </summary>
-		static public Note LoadFromFile()
+		public static Note LoadFromFile(string filename)
 		{
+			filename = File.Exists(filename) ? filename : _defaultPath;
+		
 			JsonSerializer serializer = new JsonSerializer();
+			Note note = null;
 
-			using (StreamReader sr = new StreamReader(pathName))
+			using (StreamReader sr = new StreamReader(filename))
 			using (JsonReader reader = new JsonTextReader(sr))
 			{ 
-				return (Note)serializer.Deserialize<Note>(reader);
-			}
 
+				note = (Note)serializer.Deserialize<Note>(reader);
+			}
+			return note;
 		}
+
+	
 	}
 }

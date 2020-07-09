@@ -20,8 +20,8 @@ namespace NoteApp
 		/// Создает новый список, при создании объекта класса Project
 		/// </summary>
 		public Project()
-		{
-			NoteList = new List<Note>();
+        { //TODO: вместо конструктора можно сделать значения для свойства по умолчанию
+            NoteList = new List<Note>();
 		}
 
 	}

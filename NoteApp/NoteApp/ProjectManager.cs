@@ -13,10 +13,12 @@ namespace NoteApp
 	/// </summary>
 	public static class ProjectManager
 	{
-		/// <summary>
-		/// Хранит путь к файлу для записи
-		/// </summary>
-		 private static readonly string _defaultPath =
+        //TODO: только надо еще создавать подпапку для своей программы, а не просто в AppData
+        //TODO: переделать в открытое свойство
+        /// <summary>
+        /// Хранит путь к файлу для записи
+        /// </summary>
+        private static readonly string _defaultPath =
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp.note";
 
 
@@ -24,8 +26,9 @@ namespace NoteApp
 		/// Метод, сохраняющий объекты класса Note
 		/// </summary>
 		public static void SaveToFile(Note note, string filename)
-		{
-			filename = File.Exists(filename) ? filename : _defaultPath;
+        { //TODO: сохранять нужно в любом случае по тому пути, который передали в метод. А вот клиентский код может либо передать свой путь, либо передать дефолтный
+            //TODO: класс должен сохранять/загружать весь проект, а не по одной заметке.
+            filename = File.Exists(filename) ? filename : _defaultPath;
 
 			JsonSerializer serializer = new JsonSerializer();
 			using (StreamWriter sw = new StreamWriter(filename))
@@ -40,7 +43,10 @@ namespace NoteApp
 		/// </summary>
 		public static Note LoadFromFile(string filename)
 		{
-			filename = File.Exists(filename) ? filename : _defaultPath;
+            //TODO: работа только с переданным путем, а не фефолтным
+            //TODO: метод должен загружать объект проекта, а не одной заметки
+            //TODO: нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен
+            filename = File.Exists(filename) ? filename : _defaultPath;
 		
 			JsonSerializer serializer = new JsonSerializer();
 			Note note = null;

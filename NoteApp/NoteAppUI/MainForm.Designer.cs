@@ -40,14 +40,15 @@
 			this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.TextBoxPanel = new System.Windows.Forms.Panel();
 			this.SelestedNoteTextBox = new System.Windows.Forms.TextBox();
-			this.NoteCreatedLabel = new System.Windows.Forms.Label();
-			this.ModifiedNoteLabel = new System.Windows.Forms.Label();
+			this.CreatedLabel = new System.Windows.Forms.Label();
+			this.ModifiedLabel = new System.Windows.Forms.Label();
 			this.CategoryLabel = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.ModifiedDateTimePicker = new System.Windows.Forms.DateTimePicker();
+			this.CreatedDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.NoteTitleLabel = new System.Windows.Forms.Label();
 			this.ButtonsPanel = new System.Windows.Forms.Panel();
-			this.CreatedTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
-			this.ModifiedTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
+			this.MainFormSplitCantainer = new System.Windows.Forms.SplitContainer();
 			this.RemoveButton = new System.Windows.Forms.Button();
 			this.EditButton = new System.Windows.Forms.Button();
 			this.AddButton = new System.Windows.Forms.Button();
@@ -55,6 +56,10 @@
 			this.TextBoxPanel.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.ButtonsPanel.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MainFormSplitCantainer)).BeginInit();
+			this.MainFormSplitCantainer.Panel1.SuspendLayout();
+			this.MainFormSplitCantainer.Panel2.SuspendLayout();
+			this.MainFormSplitCantainer.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// NoteListBox
@@ -63,8 +68,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.NoteListBox.FormattingEnabled = true;
-			this.NoteListBox.Location = new System.Drawing.Point(9, 38);
-			this.NoteListBox.MaximumSize = new System.Drawing.Size(270, 800);
+			this.NoteListBox.Location = new System.Drawing.Point(6, 14);
+			this.NoteListBox.MaximumSize = new System.Drawing.Size(1000, 800);
 			this.NoteListBox.MinimumSize = new System.Drawing.Size(270, 329);
 			this.NoteListBox.Name = "NoteListBox";
 			this.NoteListBox.Size = new System.Drawing.Size(270, 368);
@@ -148,50 +153,50 @@
 			this.TextBoxPanel.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.TextBoxPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.TextBoxPanel.Controls.Add(this.SelestedNoteTextBox);
-			this.TextBoxPanel.Location = new System.Drawing.Point(300, 125);
+			this.TextBoxPanel.Location = new System.Drawing.Point(3, 99);
 			this.TextBoxPanel.MaximumSize = new System.Drawing.Size(700, 550);
-			this.TextBoxPanel.MinimumSize = new System.Drawing.Size(475, 325);
+			this.TextBoxPanel.MinimumSize = new System.Drawing.Size(460, 300);
 			this.TextBoxPanel.Name = "TextBoxPanel";
-			this.TextBoxPanel.Size = new System.Drawing.Size(475, 325);
+			this.TextBoxPanel.Size = new System.Drawing.Size(471, 300);
 			this.TextBoxPanel.TabIndex = 2;
 			// 
 			// SelestedNoteTextBox
 			// 
 			this.SelestedNoteTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.SelestedNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.SelestedNoteTextBox.Location = new System.Drawing.Point(1, 2);
+			this.SelestedNoteTextBox.Location = new System.Drawing.Point(-1, 3);
 			this.SelestedNoteTextBox.Name = "SelestedNoteTextBox";
 			this.SelestedNoteTextBox.ReadOnly = true;
 			this.SelestedNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.SelestedNoteTextBox.Size = new System.Drawing.Size(465, 13);
 			this.SelestedNoteTextBox.TabIndex = 0;
 			// 
-			// NoteCreatedLabel
+			// CreatedLabel
 			// 
-			this.NoteCreatedLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.NoteCreatedLabel.AutoSize = true;
-			this.NoteCreatedLabel.Location = new System.Drawing.Point(1, 70);
-			this.NoteCreatedLabel.Name = "NoteCreatedLabel";
-			this.NoteCreatedLabel.Size = new System.Drawing.Size(50, 13);
-			this.NoteCreatedLabel.TabIndex = 3;
-			this.NoteCreatedLabel.Text = "Created: ";
-			this.NoteCreatedLabel.Click += new System.EventHandler(this.NoteCreatedLabel_Click);
+			this.CreatedLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.CreatedLabel.AutoSize = true;
+			this.CreatedLabel.Location = new System.Drawing.Point(-2, 70);
+			this.CreatedLabel.Name = "CreatedLabel";
+			this.CreatedLabel.Size = new System.Drawing.Size(50, 13);
+			this.CreatedLabel.TabIndex = 3;
+			this.CreatedLabel.Text = "Created: ";
+			this.CreatedLabel.Click += new System.EventHandler(this.NoteCreatedLabel_Click);
 			// 
-			// ModifiedNoteLabel
+			// ModifiedLabel
 			// 
-			this.ModifiedNoteLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.ModifiedNoteLabel.AutoSize = true;
-			this.ModifiedNoteLabel.Location = new System.Drawing.Point(181, 70);
-			this.ModifiedNoteLabel.Name = "ModifiedNoteLabel";
-			this.ModifiedNoteLabel.Size = new System.Drawing.Size(50, 13);
-			this.ModifiedNoteLabel.TabIndex = 4;
-			this.ModifiedNoteLabel.Text = "Modified:";
+			this.ModifiedLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.ModifiedLabel.AutoSize = true;
+			this.ModifiedLabel.Location = new System.Drawing.Point(178, 70);
+			this.ModifiedLabel.Name = "ModifiedLabel";
+			this.ModifiedLabel.Size = new System.Drawing.Size(50, 13);
+			this.ModifiedLabel.TabIndex = 4;
+			this.ModifiedLabel.Text = "Modified:";
 			// 
 			// CategoryLabel
 			// 
 			this.CategoryLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.CategoryLabel.AutoSize = true;
-			this.CategoryLabel.Location = new System.Drawing.Point(1, 48);
+			this.CategoryLabel.Location = new System.Drawing.Point(-2, 48);
 			this.CategoryLabel.Name = "CategoryLabel";
 			this.CategoryLabel.Size = new System.Drawing.Size(52, 13);
 			this.CategoryLabel.TabIndex = 5;
@@ -199,16 +204,30 @@
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.ModifiedTimeDateTimePicker);
-			this.panel1.Controls.Add(this.CreatedTimeDateTimePicker);
+			this.panel1.Controls.Add(this.ModifiedDateTimePicker);
+			this.panel1.Controls.Add(this.CreatedDateTimePicker);
 			this.panel1.Controls.Add(this.NoteTitleLabel);
 			this.panel1.Controls.Add(this.CategoryLabel);
-			this.panel1.Controls.Add(this.ModifiedNoteLabel);
-			this.panel1.Controls.Add(this.NoteCreatedLabel);
-			this.panel1.Location = new System.Drawing.Point(300, 27);
+			this.panel1.Controls.Add(this.ModifiedLabel);
+			this.panel1.Controls.Add(this.CreatedLabel);
+			this.panel1.Location = new System.Drawing.Point(3, 3);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(477, 92);
+			this.panel1.Size = new System.Drawing.Size(471, 92);
 			this.panel1.TabIndex = 6;
+			// 
+			// ModifiedDateTimePicker
+			// 
+			this.ModifiedDateTimePicker.Location = new System.Drawing.Point(228, 70);
+			this.ModifiedDateTimePicker.Name = "ModifiedDateTimePicker";
+			this.ModifiedDateTimePicker.Size = new System.Drawing.Size(123, 20);
+			this.ModifiedDateTimePicker.TabIndex = 8;
+			// 
+			// CreatedDateTimePicker
+			// 
+			this.CreatedDateTimePicker.Location = new System.Drawing.Point(48, 69);
+			this.CreatedDateTimePicker.Name = "CreatedDateTimePicker";
+			this.CreatedDateTimePicker.Size = new System.Drawing.Size(124, 20);
+			this.CreatedDateTimePicker.TabIndex = 7;
 			// 
 			// NoteTitleLabel
 			// 
@@ -222,27 +241,39 @@
 			// 
 			// ButtonsPanel
 			// 
+			this.ButtonsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.ButtonsPanel.Controls.Add(this.RemoveButton);
 			this.ButtonsPanel.Controls.Add(this.EditButton);
 			this.ButtonsPanel.Controls.Add(this.AddButton);
-			this.ButtonsPanel.Location = new System.Drawing.Point(9, 412);
+			this.ButtonsPanel.Location = new System.Drawing.Point(6, 386);
 			this.ButtonsPanel.Name = "ButtonsPanel";
-			this.ButtonsPanel.Size = new System.Drawing.Size(267, 37);
+			this.ButtonsPanel.Size = new System.Drawing.Size(255, 37);
 			this.ButtonsPanel.TabIndex = 7;
 			// 
-			// CreatedTimeDateTimePicker
+			// MainFormSplitCantainer
 			// 
-			this.CreatedTimeDateTimePicker.Location = new System.Drawing.Point(48, 69);
-			this.CreatedTimeDateTimePicker.Name = "CreatedTimeDateTimePicker";
-			this.CreatedTimeDateTimePicker.Size = new System.Drawing.Size(109, 20);
-			this.CreatedTimeDateTimePicker.TabIndex = 7;
+			this.MainFormSplitCantainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.MainFormSplitCantainer.Location = new System.Drawing.Point(6, 27);
+			this.MainFormSplitCantainer.MaximumSize = new System.Drawing.Size(980, 800);
+			this.MainFormSplitCantainer.MinimumSize = new System.Drawing.Size(600, 400);
+			this.MainFormSplitCantainer.Name = "MainFormSplitCantainer";
 			// 
-			// ModifiedTimeDateTimePicker
+			// MainFormSplitCantainer.Panel1
 			// 
-			this.ModifiedTimeDateTimePicker.Location = new System.Drawing.Point(228, 70);
-			this.ModifiedTimeDateTimePicker.Name = "ModifiedTimeDateTimePicker";
-			this.ModifiedTimeDateTimePicker.Size = new System.Drawing.Size(113, 20);
-			this.ModifiedTimeDateTimePicker.TabIndex = 8;
+			this.MainFormSplitCantainer.Panel1.AutoScroll = true;
+			this.MainFormSplitCantainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(275, 275);
+			this.MainFormSplitCantainer.Panel1.Controls.Add(this.ButtonsPanel);
+			this.MainFormSplitCantainer.Panel1.Controls.Add(this.NoteListBox);
+			// 
+			// MainFormSplitCantainer.Panel2
+			// 
+			this.MainFormSplitCantainer.Panel2.Controls.Add(this.TextBoxPanel);
+			this.MainFormSplitCantainer.Panel2.Controls.Add(this.panel1);
+			this.MainFormSplitCantainer.Size = new System.Drawing.Size(778, 431);
+			this.MainFormSplitCantainer.SplitterDistance = 285;
+			this.MainFormSplitCantainer.TabIndex = 8;
 			// 
 			// RemoveButton
 			// 
@@ -282,10 +313,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(784, 461);
-			this.Controls.Add(this.NoteListBox);
-			this.Controls.Add(this.ButtonsPanel);
-			this.Controls.Add(this.panel1);
-			this.Controls.Add(this.TextBoxPanel);
+			this.Controls.Add(this.MainFormSplitCantainer);
 			this.Controls.Add(this.MainFormStripMenu);
 			this.MainMenuStrip = this.MainFormStripMenu;
 			this.MaximumSize = new System.Drawing.Size(1000, 700);
@@ -299,6 +327,11 @@
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.ButtonsPanel.ResumeLayout(false);
+			this.MainFormSplitCantainer.Panel1.ResumeLayout(false);
+			this.MainFormSplitCantainer.Panel2.ResumeLayout(false);
+			this.MainFormSplitCantainer.Panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MainFormSplitCantainer)).EndInit();
+			this.MainFormSplitCantainer.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -318,8 +351,8 @@
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
 		private System.Windows.Forms.Panel TextBoxPanel;
 		private System.Windows.Forms.TextBox SelestedNoteTextBox;
-		private System.Windows.Forms.Label NoteCreatedLabel;
-		private System.Windows.Forms.Label ModifiedNoteLabel;
+		private System.Windows.Forms.Label CreatedLabel;
+		private System.Windows.Forms.Label ModifiedLabel;
 		private System.Windows.Forms.Label CategoryLabel;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Label NoteTitleLabel;
@@ -327,7 +360,8 @@
 		private System.Windows.Forms.Button EditButton;
 		private System.Windows.Forms.Button AddButton;
 		private System.Windows.Forms.Button RemoveButton;
-		private System.Windows.Forms.DateTimePicker ModifiedTimeDateTimePicker;
-		private System.Windows.Forms.DateTimePicker CreatedTimeDateTimePicker;
+		private System.Windows.Forms.DateTimePicker ModifiedDateTimePicker;
+		private System.Windows.Forms.DateTimePicker CreatedDateTimePicker;
+		private System.Windows.Forms.SplitContainer MainFormSplitCantainer;
 	}
 }

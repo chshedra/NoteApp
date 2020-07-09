@@ -21,5 +21,25 @@ namespace NoteAppUI
 		{
 
 		}
+
+		private void EditOKButton_Click(object sender, EventArgs e)
+		{
+			var list = new NoteApp.Project();
+			var note = new NoteApp.Note();
+			list.NoteList.Add(note);
+			NoteApp.ProjectManager.SaveToFile(list, NoteApp.ProjectManager.DefaultPath);
+			EditTextBox.Text = note.Modified.ToString();
+		}
+
+		private void EditCancelButton_Click(object sender, EventArgs e)
+		{
+			var note = NoteApp.ProjectManager.LoadFromFile(NoteApp.ProjectManager.DefaultPath);
+			EditTextBox.Text = note.NoteList[0].Modified.ToString();
+		}
+
+		private void EditTitleLabel_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

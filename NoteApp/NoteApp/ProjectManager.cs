@@ -13,51 +13,58 @@ namespace NoteApp
 	/// </summary>
 	public static class ProjectManager
 	{
-        //TODO: только надо еще создавать подпапку для своей программы, а не просто в AppData
-        //TODO: переделать в открытое свойство
+        //TODO:+ только надо еще создавать подпапку для своей программы, а не просто в AppData
+        //TODO: +переделать в открытое свойство
         /// <summary>
         /// Хранит путь к файлу для записи
         /// </summary>
-        private static readonly string _defaultPath =
-			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp.note";
-
+		public static string DefaultPath { get; private set; } =
+			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+				"\\NoteApp\\Note.note");
 
 		/// <summary>
 		/// Метод, сохраняющий объекты класса Note
 		/// </summary>
-		public static void SaveToFile(Note note, string filename)
-        { //TODO: сохранять нужно в любом случае по тому пути, который передали в метод. А вот клиентский код может либо передать свой путь, либо передать дефолтный
-            //TODO: класс должен сохранять/загружать весь проект, а не по одной заметке.
-            filename = File.Exists(filename) ? filename : _defaultPath;
+		public static void SaveToFile(Project project, string filename)
+        { //TODO: +сохранять нужно в любом случае по тому пути, который передали в метод. А вот клиентский код может либо передать свой путь, либо передать дефолтный
+            //TODO: +класс должен сохранять/загружать весь проект, а не по одной заметке.
+           
+			if(!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "NoteApp"))
+			{
+				Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
+					"\\NoteApp");
+			}
 
 			JsonSerializer serializer = new JsonSerializer();
 			using (StreamWriter sw = new StreamWriter(filename))
 			using (JsonWriter writer = new JsonTextWriter(sw))
 			{ 
-				serializer.Serialize(writer, note);
+				serializer.Serialize(writer, project);
 			}
 		}
 
 		/// <summary>
 		/// Метод, загружающий объекты класса Note
 		/// </summary>
-		public static Note LoadFromFile(string filename)
+		public static Project LoadFromFile(string filename)
 		{
-            //TODO: работа только с переданным путем, а не фефолтным
-            //TODO: метод должен загружать объект проекта, а не одной заметки
-            //TODO: нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен
-            filename = File.Exists(filename) ? filename : _defaultPath;
-		
-			JsonSerializer serializer = new JsonSerializer();
-			Note note = null;
+			//TODO: +работа только с переданным путем, а не фефолтным
+			//TODO: +метод должен загружать объект проекта, а не одной заметки
+			//TODO: +нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен
+			Project project = null;
 
-			using (StreamReader sr = new StreamReader(filename))
-			using (JsonReader reader = new JsonTextReader(sr))
-			{ 
+			if (File.Exists(filename))
+			{
+				JsonSerializer serializer = new JsonSerializer();
 
-				note = (Note)serializer.Deserialize<Note>(reader);
+				using (StreamReader sr = new StreamReader(filename))
+				using (JsonReader reader = new JsonTextReader(sr))
+				{
+
+					project = (Project)serializer.Deserialize<Project>(reader);
+				}
 			}
-			return note;
+			return project;
 		}
 
 	

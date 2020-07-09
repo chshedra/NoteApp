@@ -14,15 +14,11 @@ namespace NoteApp
 		/// <summary>
 		/// Устанавливает и возвращает список объектов класса Note
 		/// </summary>
-		public List<Note> NoteList { get; set; }
+		public List<Note> NoteList { get; set; } = new List<Note>();
 
-		/// <summary>
-		/// Создает новый список, при создании объекта класса Project
-		/// </summary>
-		public Project()
-        { //TODO: вместо конструктора можно сделать значения для свойства по умолчанию
-            NoteList = new List<Note>();
-		}
+	
+        //TODO: +вместо конструктора можно сделать значения для свойства по умолчанию
+        
 
 	}
 }

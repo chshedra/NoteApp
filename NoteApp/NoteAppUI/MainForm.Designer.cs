@@ -29,6 +29,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.NoteListBox = new System.Windows.Forms.ListBox();
 			this.MainFormStripMenu = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +52,8 @@
 			this.EditButton = new System.Windows.Forms.Button();
 			this.AddButton = new System.Windows.Forms.Button();
 			this.MainFormSplitCantainer = new System.Windows.Forms.SplitContainer();
+			this.ShowCategoryLabel = new System.Windows.Forms.Label();
+			this.CategoryComboBox = new System.Windows.Forms.ComboBox();
 			this.NoteTextBox = new System.Windows.Forms.TextBox();
 			this.MainFormStripMenu.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -67,11 +70,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.NoteListBox.FormattingEnabled = true;
-			this.NoteListBox.Location = new System.Drawing.Point(6, 14);
+			this.NoteListBox.Location = new System.Drawing.Point(6, 53);
 			this.NoteListBox.MaximumSize = new System.Drawing.Size(1000, 800);
 			this.NoteListBox.MinimumSize = new System.Drawing.Size(270, 329);
 			this.NoteListBox.Name = "NoteListBox";
-			this.NoteListBox.Size = new System.Drawing.Size(270, 368);
+			this.NoteListBox.Size = new System.Drawing.Size(270, 329);
 			this.NoteListBox.TabIndex = 0;
 			this.NoteListBox.SelectedIndexChanged += new System.EventHandler(this.NoteListBox_SelectedIndexChanged);
 			// 
@@ -141,7 +144,7 @@
 			// aboutToolStripMenuItem1
 			// 
 			this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-			this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+			this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
 			this.aboutToolStripMenuItem1.Text = "About";
 			this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
 			// 
@@ -154,7 +157,6 @@
 			this.CreatedLabel.Size = new System.Drawing.Size(50, 13);
 			this.CreatedLabel.TabIndex = 3;
 			this.CreatedLabel.Text = "Created: ";
-			this.CreatedLabel.Click += new System.EventHandler(this.NoteCreatedLabel_Click);
 			// 
 			// ModifiedLabel
 			// 
@@ -276,6 +278,8 @@
 			// 
 			this.MainFormSplitCantainer.Panel1.AutoScroll = true;
 			this.MainFormSplitCantainer.Panel1.AutoScrollMinSize = new System.Drawing.Size(275, 275);
+			this.MainFormSplitCantainer.Panel1.Controls.Add(this.ShowCategoryLabel);
+			this.MainFormSplitCantainer.Panel1.Controls.Add(this.CategoryComboBox);
 			this.MainFormSplitCantainer.Panel1.Controls.Add(this.ButtonsPanel);
 			this.MainFormSplitCantainer.Panel1.Controls.Add(this.NoteListBox);
 			// 
@@ -286,6 +290,23 @@
 			this.MainFormSplitCantainer.Size = new System.Drawing.Size(778, 431);
 			this.MainFormSplitCantainer.SplitterDistance = 285;
 			this.MainFormSplitCantainer.TabIndex = 8;
+			// 
+			// ShowCategoryLabel
+			// 
+			this.ShowCategoryLabel.AutoSize = true;
+			this.ShowCategoryLabel.Location = new System.Drawing.Point(6, 17);
+			this.ShowCategoryLabel.Name = "ShowCategoryLabel";
+			this.ShowCategoryLabel.Size = new System.Drawing.Size(84, 13);
+			this.ShowCategoryLabel.TabIndex = 9;
+			this.ShowCategoryLabel.Text = "Show category: ";
+			// 
+			// CategoryComboBox
+			// 
+			this.CategoryComboBox.FormattingEnabled = true;
+			this.CategoryComboBox.Location = new System.Drawing.Point(96, 14);
+			this.CategoryComboBox.Name = "CategoryComboBox";
+			this.CategoryComboBox.Size = new System.Drawing.Size(180, 21);
+			this.CategoryComboBox.TabIndex = 8;
 			// 
 			// NoteTextBox
 			// 
@@ -311,17 +332,21 @@
 			this.ClientSize = new System.Drawing.Size(784, 461);
 			this.Controls.Add(this.MainFormSplitCantainer);
 			this.Controls.Add(this.MainFormStripMenu);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.MainFormStripMenu;
 			this.MaximumSize = new System.Drawing.Size(1000, 700);
 			this.MinimumSize = new System.Drawing.Size(800, 500);
 			this.Name = "MainForm";
-			this.Text = "MainForm";
+			this.Text = "NoteApp";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.MainFormStripMenu.ResumeLayout(false);
 			this.MainFormStripMenu.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.ButtonsPanel.ResumeLayout(false);
 			this.MainFormSplitCantainer.Panel1.ResumeLayout(false);
+			this.MainFormSplitCantainer.Panel1.PerformLayout();
 			this.MainFormSplitCantainer.Panel2.ResumeLayout(false);
 			this.MainFormSplitCantainer.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.MainFormSplitCantainer)).EndInit();
@@ -356,5 +381,7 @@
 		private System.Windows.Forms.DateTimePicker CreatedDateTimePicker;
 		private System.Windows.Forms.SplitContainer MainFormSplitCantainer;
 		private System.Windows.Forms.TextBox NoteTextBox;
+		private System.Windows.Forms.Label ShowCategoryLabel;
+		private System.Windows.Forms.ComboBox CategoryComboBox;
 	}
 }

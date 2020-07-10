@@ -20,7 +20,7 @@ namespace NoteApp
         /// </summary>
 		public static string DefaultPath { get; private set; } =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-				"\\NoteApp\\Note.note");
+				"\\NoteApp\\NoteApp.txt");
 
 		/// <summary>
 		/// Метод, сохраняющий объекты класса Note
@@ -29,7 +29,7 @@ namespace NoteApp
         { //TODO: +сохранять нужно в любом случае по тому пути, который передали в метод. А вот клиентский код может либо передать свой путь, либо передать дефолтный
             //TODO: +класс должен сохранять/загружать весь проект, а не по одной заметке.
            
-			if(!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "NoteApp"))
+			if(!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp"))
 			{
 				Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
 					"\\NoteApp");

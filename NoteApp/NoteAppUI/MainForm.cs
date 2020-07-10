@@ -16,11 +16,16 @@ namespace NoteAppUI
 		public MainForm()
 		{
 			InitializeComponent();
-			_project = new NoteApp.Project();
-
+		
 			AddToolStripMenuItem.Click += AddButton_Click;
 			EditNoteToolStripMenuItem.Click += EditButton_Click;
 			RemoveNoteToolStripMenuItem.Click += RemoveButton_Click;
+
+			foreach(NoteApp.NoteCategory category in Enum.GetValues(typeof (NoteApp.NoteCategory)))
+			{
+				CategoryComboBox.Items.Add(category);
+			}
+			CategoryComboBox.Items.Add("All");
 		}
 
 		
@@ -44,16 +49,6 @@ namespace NoteAppUI
 
 		}
 
-		private void NoteCreatedLabel_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void panel2_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
 		private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			AboutForm aboutForm = new AboutForm();
@@ -62,14 +57,17 @@ namespace NoteAppUI
 
 		private void AddButton_Click(object sender, EventArgs e)
 		{
-			AddAndEditForm addForm = new AddAndEditForm();
-			addForm.ShowDialog();
+			NoteForm noteForm = new NoteForm();
+			noteForm.ShowDialog();
 
-			if (addForm.DialogResult == DialogResult.OK)
+			if (noteForm.DialogResult == DialogResult.OK)
 			{
-				var created = addForm.Note;
+				var created = noteForm.Note;
 				_project.NoteList.Add(created);
+				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+
 				NoteListBox.Items.Add(created.Title);
+
 				NoteListBox.SelectedIndex = NoteListBox.Items.Count - 1;
 			}
 		}
@@ -85,19 +83,21 @@ namespace NoteAppUI
 			}
 
 			var selectedNote = _project.NoteList[selectedIndex];
-			var editForm = new AddAndEditForm();
+			var noteForm = new NoteForm();
 
-			editForm.Note = selectedNote;
-			editForm.ShowDialog();
+			noteForm.Note = selectedNote;
+			noteForm.ShowDialog();
 
-			if (editForm.DialogResult == DialogResult.OK)
+			if (noteForm.DialogResult == DialogResult.OK)
 			{
-				var updateNote = editForm.Note;
+				var updateNote = noteForm.Note;
 				NoteListBox.Items.RemoveAt(selectedIndex);
 				_project.NoteList.RemoveAt(selectedIndex);
 
 				_project.NoteList.Insert(selectedIndex, updateNote);
 				NoteListBox.Items.Insert(selectedIndex, updateNote.Title);
+				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+
 				NoteListBox.SelectedIndex = selectedIndex;
 			}
 		}
@@ -113,25 +113,56 @@ namespace NoteAppUI
 				return;
 			}
 
-			NoteListBox.Items.RemoveAt(selectedIndex);
-			_project.NoteList.RemoveAt(selectedIndex);
-			if (NoteListBox.Items.Count > 0)
+			DialogResult result = MessageBox.Show("Do you really want delete this note: " + 
+				_project.NoteList[selectedIndex].Title, "Message", 
+					MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+			if (result == DialogResult.OK)
 			{
-				NoteListBox.SelectedIndex = 0;
-			}
-			else
-			{
-				TitleLabel.Text = "Title";
-				NoteTextBox.Text = null;
-				CategoryLabel.Text = "Category: ";
-				CreatedDateTimePicker.Value = DateTime.Now;
-				ModifiedDateTimePicker.Value = DateTime.Now;
+				NoteListBox.Items.RemoveAt(selectedIndex);
+				_project.NoteList.RemoveAt(selectedIndex);
+				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+
+				if (NoteListBox.Items.Count > 0)
+				{
+					NoteListBox.SelectedIndex = 0;
+				}
+				else
+				{
+					TitleLabel.Text = "Title";
+					NoteTextBox.Text = null;
+					CategoryLabel.Text = "Category: ";
+					CreatedDateTimePicker.Value = DateTime.Now;
+					ModifiedDateTimePicker.Value = DateTime.Now;
+				}
 			}
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			_project = NoteApp.ProjectManager.LoadFromFile(NoteApp.ProjectManager.DefaultPath);
+
+			if(_project == null)
+			{
+				_project = new NoteApp.Project();
+			}
+			else
+			{
+				for (int i = 0; i < _project.NoteList.Count; i++)
+				{
+					NoteListBox.Items.Add(_project.NoteList[i].Title);
+				}
+			}
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
 		}
 	}
 }

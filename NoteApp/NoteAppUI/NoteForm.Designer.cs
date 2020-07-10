@@ -1,6 +1,6 @@
 ﻿namespace NoteAppUI
 {
-	partial class AddAndEditForm
+	partial class NoteForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NoteForm));
 			this.EditCategoryLabel = new System.Windows.Forms.Label();
 			this.EditTitleTextBox = new System.Windows.Forms.TextBox();
 			this.EditCategoryComboBox = new System.Windows.Forms.ComboBox();
@@ -41,8 +42,8 @@
 			this.EditCancelButton = new System.Windows.Forms.Button();
 			this.EditOKButton = new System.Windows.Forms.Button();
 			this.AddAndEditFormSplitContainer = new System.Windows.Forms.SplitContainer();
-			this.EditTextBox = new System.Windows.Forms.TextBox();
 			this.EditTextBoxPanel = new System.Windows.Forms.Panel();
+			this.EditTextBox = new System.Windows.Forms.TextBox();
 			this.TitleCategoryTimeEditPanel.SuspendLayout();
 			this.EditButtonsPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.AddAndEditFormSplitContainer)).BeginInit();
@@ -189,6 +190,20 @@
 			this.AddAndEditFormSplitContainer.SplitterDistance = 108;
 			this.AddAndEditFormSplitContainer.TabIndex = 7;
 			// 
+			// EditTextBoxPanel
+			// 
+			this.EditTextBoxPanel.AutoSize = true;
+			this.EditTextBoxPanel.BackColor = System.Drawing.SystemColors.Window;
+			this.EditTextBoxPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.EditTextBoxPanel.Controls.Add(this.EditTextBox);
+			this.EditTextBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.EditTextBoxPanel.Location = new System.Drawing.Point(0, 0);
+			this.EditTextBoxPanel.MaximumSize = new System.Drawing.Size(1000, 700);
+			this.EditTextBoxPanel.MinimumSize = new System.Drawing.Size(6, 50);
+			this.EditTextBoxPanel.Name = "EditTextBoxPanel";
+			this.EditTextBoxPanel.Size = new System.Drawing.Size(660, 290);
+			this.EditTextBoxPanel.TabIndex = 5;
+			// 
 			// EditTextBox
 			// 
 			this.EditTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -205,31 +220,17 @@
 			this.EditTextBox.TabIndex = 0;
 			this.EditTextBox.TextChanged += new System.EventHandler(this.EditTextBox_TextChanged);
 			// 
-			// EditTextBoxPanel
-			// 
-			this.EditTextBoxPanel.AutoSize = true;
-			this.EditTextBoxPanel.BackColor = System.Drawing.SystemColors.Window;
-			this.EditTextBoxPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.EditTextBoxPanel.Controls.Add(this.EditTextBox);
-			this.EditTextBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.EditTextBoxPanel.Location = new System.Drawing.Point(0, 0);
-			this.EditTextBoxPanel.MaximumSize = new System.Drawing.Size(1000, 700);
-			this.EditTextBoxPanel.MinimumSize = new System.Drawing.Size(6, 50);
-			this.EditTextBoxPanel.Name = "EditTextBoxPanel";
-			this.EditTextBoxPanel.Size = new System.Drawing.Size(660, 290);
-			this.EditTextBoxPanel.TabIndex = 5;
-			this.EditTextBoxPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.EditTextBoxPanel_Paint);
-			// 
-			// AddAndEditForm
+			// NoteForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(684, 461);
 			this.Controls.Add(this.EditButtonsPanel);
 			this.Controls.Add(this.AddAndEditFormSplitContainer);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximumSize = new System.Drawing.Size(1000, 700);
 			this.MinimumSize = new System.Drawing.Size(700, 500);
-			this.Name = "AddAndEditForm";
+			this.Name = "NoteForm";
 			this.Text = "Add/Edit Note";
 			this.TitleCategoryTimeEditPanel.ResumeLayout(false);
 			this.TitleCategoryTimeEditPanel.PerformLayout();

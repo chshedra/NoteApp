@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace NoteAppUI
 {
-	public partial class AddAndEditForm : Form
+	public partial class NoteForm : Form
 	{
 		private NoteApp.Note _note = new NoteApp.Note();
 		public NoteApp.Note Note
@@ -32,43 +32,34 @@ namespace NoteAppUI
 				}
 			}
 			}
-		public AddAndEditForm()
+		public NoteForm()
 		{
 			InitializeComponent();
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.Documents);
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.Finance);
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.Home);
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.Other);
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.People);
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.SportAndHealth);
-			EditCategoryComboBox.Items.Add(NoteApp.NoteCategory.Work);
-		}
 
-		private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-		{
-
+			foreach (NoteApp.NoteCategory category in Enum.GetValues(typeof(NoteApp.NoteCategory)))
+			{
+				EditCategoryComboBox.Items.Add(category);
+			}
 		}
 
 		private void EditOKButton_Click(object sender, EventArgs e)
 		{
-			DialogResult = DialogResult.OK;
-			this.Close();
+			if (EditTitleTextBox.Text.Length > 50)
+			{
+				MessageBox.Show("The size of title should be less, than 50 symbols",
+					"Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			else
+			{
+				DialogResult = DialogResult.OK;
+				this.Close();
+			}
 		}
 
 		private void EditCancelButton_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 			this.Close();
-		}
-
-		private void EditTitleLabel_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void EditTextBoxPanel_Paint(object sender, PaintEventArgs e)
-		{
-
 		}
 
 		private void EditTextBox_TextChanged(object sender, EventArgs e)
@@ -78,6 +69,10 @@ namespace NoteAppUI
 
 		private void EditTitleTextBox_TextChanged(object sender, EventArgs e)
 		{
+			EditTitleTextBox.BackColor = (EditTitleTextBox.Text.Length > 50) 
+				? Color.IndianRed
+				: Color.White;
+
 			_note.Title = EditTitleTextBox.Text;
 		}
 

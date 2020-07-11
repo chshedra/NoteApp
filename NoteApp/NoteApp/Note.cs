@@ -45,6 +45,11 @@ namespace NoteApp
             }
             set
             {
+                if(value.Length > 50)
+                {
+                    throw new ArgumentException("Размер имени заметки должен быть " +
+                        "менее 50 символов. " + "Текущий размер:" + value.Length);
+                }
                 Modified = DateTime.Now;
                 _title = value;
             }

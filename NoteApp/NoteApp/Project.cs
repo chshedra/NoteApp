@@ -15,9 +15,5 @@ namespace NoteApp
 		/// Устанавливает и возвращает список объектов класса Note
 		/// </summary>
 		public List<Note> NoteList { get; set; } = new List<Note>();
-		//TODO: +вместо конструктора можно сделать значения для свойства по умолчанию
-
-		
-
 	}
 }

@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NoteApp;
-
+//TODO: NoteApp или NotesApp?
 namespace NotesApp.UnitTests
 {
     [TestFixture]
     public class NoteTest
     {
         private Note _note;
-
+        //TODO: setup лучше не использовать, разве в методичке этого не сказано?
         [SetUp]
         public void Note_Init()
         {

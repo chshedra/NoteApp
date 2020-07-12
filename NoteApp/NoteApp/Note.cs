@@ -14,13 +14,11 @@ namespace NoteApp
     /// </summary>
     public class Note : ICloneable
     {
-        //TODO: +поле не может что-либо устанавливать
         /// <summary>
         /// Название заметки
         /// </summary>
-        
         private string _title;
-        //TODO: +убрать слово note из названия поля
+        
         /// <summary>
         /// Содержимое заметки
         /// </summary>
@@ -30,9 +28,6 @@ namespace NoteApp
         /// Категория заметки
         /// </summary>
         private NoteCategory _category;
-
-
-
 
         /// <summary>
         /// Возвращает и задает название заметки. Размер названия не более 50 символов
@@ -54,8 +49,7 @@ namespace NoteApp
                 _title = value;
             }
         }
- 
-        
+
         /// <summary>
         ///  Возвращает и задает категорию заметки
         /// </summary>
@@ -88,19 +82,15 @@ namespace NoteApp
                 Modified = DateTime.Now;
             }
         }
-        //TODO: +лучше переименовать в Created
-        //TODO: +сеттер должен быть закрытым
+
         /// <summary>
         ///  Возвращает время создания заметки
         /// </summary>
         public DateTime Created { get; private set; }
-        //TODO: +лучше переименовать в Modified
-        //TODO: +почему не сериализуется? А не это имел ввиду, когда говорил, что надо решить проблему с сериализацией времени
-        //TODO: +сеттер должен быть закрытым
+
         /// <summary>
         ///  Возвращает время последнего изменения заметки
         /// </summary>
-       
         public DateTime Modified { get; private set; }
 
         /// <summary>
@@ -110,13 +100,11 @@ namespace NoteApp
         {
             return this.MemberwiseClone();
         }
-        //TODO: зачем два конструктора?
-        // Теперь один для сериализации, другой для обычного создания объекта
+        
         /// <summary>
         /// Конструктор для сериализации, устанавливает значения полей Название, Текст, 
         /// Категория заметки, Время создания, Время изменения
         /// </summary>
-        
         [JsonConstructor]
         public Note(string title, string text, NoteCategory category, 
             DateTime created, DateTime modified) 

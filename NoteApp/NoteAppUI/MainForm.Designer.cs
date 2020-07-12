@@ -100,7 +100,7 @@
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -117,20 +117,20 @@
 			// AddToolStripMenuItem
 			// 
 			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-			this.AddToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.AddToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.AddToolStripMenuItem.Text = "Add note";
 			this.AddToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
 			// 
 			// EditNoteToolStripMenuItem
 			// 
 			this.EditNoteToolStripMenuItem.Name = "EditNoteToolStripMenuItem";
-			this.EditNoteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.EditNoteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.EditNoteToolStripMenuItem.Text = "Edit note";
 			// 
 			// RemoveNoteToolStripMenuItem
 			// 
 			this.RemoveNoteToolStripMenuItem.Name = "RemoveNoteToolStripMenuItem";
-			this.RemoveNoteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.RemoveNoteToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
 			this.RemoveNoteToolStripMenuItem.Text = "Remove note";
 			// 
 			// aboutToolStripMenuItem
@@ -144,7 +144,7 @@
 			// aboutToolStripMenuItem1
 			// 
 			this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-			this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
 			this.aboutToolStripMenuItem1.Text = "About";
 			this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
 			// 
@@ -307,6 +307,7 @@
 			this.CategoryComboBox.Name = "CategoryComboBox";
 			this.CategoryComboBox.Size = new System.Drawing.Size(180, 21);
 			this.CategoryComboBox.TabIndex = 8;
+			this.CategoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
 			// 
 			// NoteTextBox
 			// 

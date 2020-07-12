@@ -17,7 +17,8 @@ namespace NoteApp
 		public List<Note> NoteList { get; set; } = new List<Note>();
 		//TODO: +вместо конструктора можно сделать значения для свойства по умолчанию
 
-		
+		public Note CurrentNote { get; set; }
 
+		
 	}
 }

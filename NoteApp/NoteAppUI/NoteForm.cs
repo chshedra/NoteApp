@@ -46,7 +46,10 @@ namespace NoteAppUI
 		{
 			try
 			{
-				_note.Title = EditTitleTextBox.Text;
+				_note.Title = (String.IsNullOrWhiteSpace(EditTitleTextBox.Text)) 
+				? "Без названия"
+				: EditTitleTextBox.Text;
+
 				DialogResult = DialogResult.OK;
 				this.Close();
 			}

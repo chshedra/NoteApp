@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NoteApp;
 
 namespace NoteAppUI
 {
@@ -21,11 +22,11 @@ namespace NoteAppUI
 			EditNoteToolStripMenuItem.Click += EditButton_Click;
 			RemoveNoteToolStripMenuItem.Click += RemoveButton_Click;
 
-			foreach(NoteApp.NoteCategory category in Enum.GetValues(typeof (NoteApp.NoteCategory)))
+			CategoryComboBox.Items.Add("All");
+			foreach (NoteCategory category in Enum.GetValues(typeof (NoteCategory)))
 			{
 				CategoryComboBox.Items.Add(category);
 			}
-			CategoryComboBox.Items.Add("All");
 		}
 
 		
@@ -33,15 +34,17 @@ namespace NoteAppUI
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
 
-			if (NoteListBox.SelectedIndex > -1)
-			{ 
+
+			foreach (Note note in _project.NoteList)
+			{
 				TitleLabel.Text = _project.NoteList[selectedIndex].Title;
 				NoteTextBox.Text = _project.NoteList[selectedIndex].Text;
-				CategoryLabel.Text = "Category: " + 
+				CategoryLabel.Text = "Category: " +
 					_project.NoteList[selectedIndex].Category.ToString();
 				CreatedDateTimePicker.Value = _project.NoteList[selectedIndex].Created;
 				ModifiedDateTimePicker.Value = _project.NoteList[selectedIndex].Modified;
 			}
+			
 		}
 
 		private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -113,16 +116,14 @@ namespace NoteAppUI
 				return;
 			}
 
+
 			DialogResult result = MessageBox.Show("Do you really want delete this note: " + 
 				_project.NoteList[selectedIndex].Title, "Message", 
 					MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
 			if (result == DialogResult.OK)
 			{
-				NoteListBox.Items.RemoveAt(selectedIndex);
 				_project.NoteList.RemoveAt(selectedIndex);
-				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
-
 				if (NoteListBox.Items.Count > 0)
 				{
 					NoteListBox.SelectedIndex = 0;
@@ -135,6 +136,10 @@ namespace NoteAppUI
 					CreatedDateTimePicker.Value = DateTime.Now;
 					ModifiedDateTimePicker.Value = DateTime.Now;
 				}
+
+				NoteListBox.Items.RemoveAt(selectedIndex);
+
+				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
 			}
 		}
 
@@ -156,13 +161,36 @@ namespace NoteAppUI
 				for (int i = 0; i < _project.NoteList.Count; i++)
 				{
 					NoteListBox.Items.Add(_project.NoteList[i].Title);
+					if (_project.NoteList[i].Created == _project.CurrentNote.Created)
+					{
+						NoteListBox.SelectedIndex = i;
+					}
 				}
 			}
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			if (NoteListBox.SelectedIndex > -1)
+			{
+				_project.CurrentNote = _project.NoteList[NoteListBox.SelectedIndex];
+			}
 			NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+		}
+
+		private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (CategoryComboBox.SelectedItem.ToString() != "All")
+			{
+				NoteListBox.Items.Clear();
+				foreach (Note note in _project.NoteList)
+				{
+					if (note.Category.ToString() == CategoryComboBox.SelectedItem.ToString())
+					{
+						NoteListBox.Items.Add(note.Title);
+					}
+				}
+			}
 		}
 	}
 }

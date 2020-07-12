@@ -33,6 +33,7 @@ namespace NoteApp
 			{
 				Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
 					"\\NoteApp");
+				
 			}
 
 			JsonSerializer serializer = new JsonSerializer();

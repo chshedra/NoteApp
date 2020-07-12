@@ -10,9 +10,10 @@ using System.Windows.Forms;
 
 namespace NoteAppUI
 {
-	public partial class NoteForm : Form
-	{
-		private NoteApp.Note _note = new NoteApp.Note();
+    //TODO: зачем на форме сделаны две панели? Из-за них нарушены расстояния между элементами
+    public partial class NoteForm : Form
+    { //TODO: xml
+        private NoteApp.Note _note = new NoteApp.Note();
 		public NoteApp.Note Note
 		{
 			get

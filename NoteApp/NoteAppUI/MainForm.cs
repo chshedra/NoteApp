@@ -11,14 +11,17 @@ using NoteApp;
 
 namespace NoteAppUI
 {
-	public partial class MainForm : Form
-	{
-		private NoteApp.Project _project;
+    //TODO: кнопки на форме не плоские, иконки с белым фоном, а не прозрачным
+    //TODO: не везде между контролами стандартные расстояния
+    public partial class MainForm : Form
+    { //TODO: xml
+        private NoteApp.Project _project;
 		public MainForm()
 		{
 			InitializeComponent();
-		
-			AddToolStripMenuItem.Click += AddButton_Click;
+
+            //TODO: почему подписка здесь, а не в дизайнере? Все подписки надо делать через дизайнер, здесь же только логика работы формы
+            AddToolStripMenuItem.Click += AddButton_Click;
 			EditNoteToolStripMenuItem.Click += EditButton_Click;
 			RemoveNoteToolStripMenuItem.Click += RemoveButton_Click;
 
@@ -49,10 +52,10 @@ namespace NoteAppUI
 
 		private void addToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+            //TODO: пустые обработчики удалить
+        }
 
-		}
-
-		private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			AboutForm aboutForm = new AboutForm();
 			aboutForm.Show();
@@ -106,12 +109,13 @@ namespace NoteAppUI
 		}
 
 		private void RemoveButton_Click(object sender, EventArgs e)
-		{
-			var selectedIndex = NoteListBox.SelectedIndex;
+        { //TODO: код проверки выбранной заметки дублируется с кодом выше. Вынести в метод
+            var selectedIndex = NoteListBox.SelectedIndex;
 
 			if (selectedIndex < 0)
 			{
-				MessageBox.Show("Необходимо выбрать заметку", "Ошибка удаления",
+                //TODO: часть сообщений на русском, часть на английском. Сделать единообразно.
+                MessageBox.Show("Необходимо выбрать заметку", "Ошибка удаления",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
@@ -151,14 +155,14 @@ namespace NoteAppUI
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			_project = NoteApp.ProjectManager.LoadFromFile(NoteApp.ProjectManager.DefaultPath);
-
-			if(_project == null)
+            //TODO: вот и почему пустой проект не создавать в менеджере? Из-за всяких null у тебя часть бизнес-логики вылазит в формы - неправильно
+            if (_project == null)
 			{
 				_project = new NoteApp.Project();
 			}
 			else
-			{
-				for (int i = 0; i < _project.NoteList.Count; i++)
+            { //TODO: делай форич везде, где это возможно
+                for (int i = 0; i < _project.NoteList.Count; i++)
 				{
 					NoteListBox.Items.Add(_project.NoteList[i].Title);
 					if (_project.NoteList[i].Created == _project.CurrentNote.Created)

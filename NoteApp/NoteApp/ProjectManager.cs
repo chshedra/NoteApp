@@ -13,8 +13,6 @@ namespace NoteApp
 	/// </summary>
 	public static class ProjectManager
 	{
-        //TODO:+ только надо еще создавать подпапку для своей программы, а не просто в AppData
-        //TODO: +переделать в открытое свойство
         /// <summary>
         /// Хранит путь к файлу для записи
         /// </summary>
@@ -26,10 +24,8 @@ namespace NoteApp
 		/// Метод, сохраняющий объекты класса Note
 		/// </summary>
 		public static void SaveToFile(Project project, string filename)
-        { //TODO: +сохранять нужно в любом случае по тому пути, который передали в метод. А вот клиентский код может либо передать свой путь, либо передать дефолтный
-            //TODO: +класс должен сохранять/загружать весь проект, а не по одной заметке.
-           
-			if(!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp"))
+        { //TODO: часто дублируется название папки - если надо будет изменить, то велика вероятность накосячить. Лучше вынести в константу-литерал
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp"))
 			{
 				Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
 					"\\NoteApp");
@@ -37,8 +33,8 @@ namespace NoteApp
 			}
 
 			JsonSerializer serializer = new JsonSerializer();
-			using (StreamWriter sw = new StreamWriter(filename))
-			using (JsonWriter writer = new JsonTextWriter(sw))
+			using (StreamWriter sw = new StreamWriter(filename)) //TODO: при закрытии программы в этой строке вылетает исключение. (файл почему-то ищется на диске С)
+            using (JsonWriter writer = new JsonTextWriter(sw))
 			{ 
 				serializer.Serialize(writer, project);
 			}
@@ -49,9 +45,7 @@ namespace NoteApp
 		/// </summary>
 		public static Project LoadFromFile(string filename)
 		{
-			//TODO: +работа только с переданным путем, а не фефолтным
-			//TODO: +метод должен загружать объект проекта, а не одной заметки
-			//TODO: +нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен
+            //TODO: нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен (НЕ ИСПРАВЛЕНО)
 			Project project = null;
 
 			if (File.Exists(filename))

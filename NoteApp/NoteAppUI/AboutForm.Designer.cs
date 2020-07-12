@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
 			this.AppNameLabel = new System.Windows.Forms.Label();
 			this.VersionLabel = new System.Windows.Forms.Label();
 			this.EmailLinkLabel = new System.Windows.Forms.LinkLabel();
@@ -97,7 +98,9 @@
 			this.Controls.Add(this.EmailLinkLabel);
 			this.Controls.Add(this.VersionLabel);
 			this.Controls.Add(this.AppNameLabel);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "AboutForm";
+			this.ShowIcon = false;
 			this.Text = "About";
 			this.ResumeLayout(false);
 			this.PerformLayout();

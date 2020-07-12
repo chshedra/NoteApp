@@ -7,14 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NoteApp;
 
 namespace NoteAppUI
 {
-    //TODO: зачем на форме сделаны две панели? Из-за них нарушены расстояния между элементами
+    //TODO: +зачем на форме сделаны две панели? Из-за них нарушены расстояния между элементами
     public partial class NoteForm : Form
-    { //TODO: xml
-        private NoteApp.Note _note = new NoteApp.Note();
-		public NoteApp.Note Note
+    { //TODO: +xml
+
+		/// <summary>
+		/// Объект класса Note для редактирования заметки
+		/// </summary>
+        private Note _note = new Note();
+
+		/// <summary>
+		/// Возвращает и устанавливает значение _note
+		/// </summary>
+		public Note Note
 		{
 			get
 		    {
@@ -33,11 +42,15 @@ namespace NoteAppUI
 				}
 			}
 			}
+
+		/// <summary>
+		/// Конструктор формы NoteForm
+		/// </summary>
 		public NoteForm()
 		{
 			InitializeComponent();
 
-			foreach (NoteApp.NoteCategory category in Enum.GetValues(typeof(NoteApp.NoteCategory)))
+			foreach (NoteCategory category in Enum.GetValues(typeof(NoteCategory)))
 			{
 				EditCategoryComboBox.Items.Add(category);
 			}

@@ -19,6 +19,5 @@ namespace NoteApp
 
 		public Note CurrentNote { get; set; }
 
-		
 	}
 }

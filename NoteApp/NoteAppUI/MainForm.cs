@@ -11,20 +11,25 @@ using NoteApp;
 
 namespace NoteAppUI
 {
-    //TODO: кнопки на форме не плоские, иконки с белым фоном, а не прозрачным
-    //TODO: не везде между контролами стандартные расстояния
+    //TODO: +кнопки на форме не плоские, иконки с белым фоном, а не прозрачным
+    //TODO: +не везде между контролами стандартные расстояния
     public partial class MainForm : Form
-    { //TODO: xml
-        private NoteApp.Project _project;
+    { //TODO: +xml
+
+		/// <summary>
+		/// Объект класса Project для хранения заметок
+		/// </summary>
+        private Project _project;
+
+
+		/// <summary>
+		/// Конструктор формы MainForm
+		/// </summary>
 		public MainForm()
 		{
 			InitializeComponent();
 
-            //TODO: почему подписка здесь, а не в дизайнере? Все подписки надо делать через дизайнер, здесь же только логика работы формы
-            AddToolStripMenuItem.Click += AddButton_Click;
-			EditNoteToolStripMenuItem.Click += EditButton_Click;
-			RemoveNoteToolStripMenuItem.Click += RemoveButton_Click;
-
+            //TODO: +почему подписка здесь, а не в дизайнере? Все подписки надо делать через дизайнер, здесь же только логика работы формы
 			CategoryComboBox.Items.Add("All");
 			foreach (NoteCategory category in Enum.GetValues(typeof (NoteCategory)))
 			{
@@ -37,23 +42,19 @@ namespace NoteAppUI
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
 
-
-			foreach (Note note in _project.NoteList)
+			if (selectedIndex > -1)
 			{
-				TitleLabel.Text = _project.NoteList[selectedIndex].Title;
-				NoteTextBox.Text = _project.NoteList[selectedIndex].Text;
-				CategoryLabel.Text = "Category: " +
-					_project.NoteList[selectedIndex].Category.ToString();
-				CreatedDateTimePicker.Value = _project.NoteList[selectedIndex].Created;
-				ModifiedDateTimePicker.Value = _project.NoteList[selectedIndex].Modified;
+				foreach (Note note in _project.NoteList)
+				{
+					TitleLabel.Text = _project.NoteList[selectedIndex].Title;
+					NoteTextBox.Text = _project.NoteList[selectedIndex].Text;
+					CategoryLabel.Text = "Category: " +
+						_project.NoteList[selectedIndex].Category.ToString();
+					CreatedDateTimePicker.Value = _project.NoteList[selectedIndex].Created;
+					ModifiedDateTimePicker.Value = _project.NoteList[selectedIndex].Modified;
+				}
 			}
-			
 		}
-
-		private void addToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-            //TODO: пустые обработчики удалить
-        }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
@@ -81,10 +82,9 @@ namespace NoteAppUI
 		private void EditButton_Click(object sender, EventArgs e)
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
-			if(selectedIndex < 0)
+
+			if(IsNoteExists(selectedIndex) == false)
 			{
-				MessageBox.Show("Необходимо выбрать заметку", "Ошибка редактирования",
-					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 
@@ -109,17 +109,13 @@ namespace NoteAppUI
 		}
 
 		private void RemoveButton_Click(object sender, EventArgs e)
-        { //TODO: код проверки выбранной заметки дублируется с кодом выше. Вынести в метод
-            var selectedIndex = NoteListBox.SelectedIndex;
+        { //TODO: +код проверки выбранной заметки дублируется с кодом выше. Вынести в метод\
+			var selectedIndex = NoteListBox.SelectedIndex;
 
-			if (selectedIndex < 0)
+			if(IsNoteExists(selectedIndex) == false)
 			{
-                //TODO: часть сообщений на русском, часть на английском. Сделать единообразно.
-                MessageBox.Show("Необходимо выбрать заметку", "Ошибка удаления",
-					MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-
 
 			DialogResult result = MessageBox.Show("Do you really want delete this note: " + 
 				_project.NoteList[selectedIndex].Title, "Message", 
@@ -154,23 +150,20 @@ namespace NoteAppUI
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			_project = NoteApp.ProjectManager.LoadFromFile(NoteApp.ProjectManager.DefaultPath);
-            //TODO: вот и почему пустой проект не создавать в менеджере? Из-за всяких null у тебя часть бизнес-логики вылазит в формы - неправильно
-            if (_project == null)
+			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
+            //TODO: +вот и почему пустой проект не создавать в менеджере? Из-за всяких null у тебя часть бизнес-логики вылазит в формы - неправильно
+            
+             //TODO: +делай форич везде, где это возможно
+			foreach (Note note in _project.NoteList)
 			{
-				_project = new NoteApp.Project();
-			}
-			else
-            { //TODO: делай форич везде, где это возможно
-                for (int i = 0; i < _project.NoteList.Count; i++)
+				NoteListBox.Items.Add(note.Title);
+				if (note.Created == _project.CurrentNote.Created)
 				{
-					NoteListBox.Items.Add(_project.NoteList[i].Title);
-					if (_project.NoteList[i].Created == _project.CurrentNote.Created)
-					{
-						NoteListBox.SelectedIndex = i;
-					}
+					NoteListBox.SelectedIndex = _project.NoteList.IndexOf(note);
 				}
 			}
+				
+			
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -194,6 +187,22 @@ namespace NoteAppUI
 						NoteListBox.Items.Add(note.Title);
 					}
 				}
+			}
+		}
+
+		private bool IsNoteExists(int selectedIndex)
+		{
+			if (selectedIndex < 0)
+			{
+				//TODO: +часть сообщений на русском, часть на английском. Сделать единообразно.
+				MessageBox.Show("Select the note", "Deletion error",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				return false;
+			}
+			else
+			{
+				return true;
 			}
 		}
 	}

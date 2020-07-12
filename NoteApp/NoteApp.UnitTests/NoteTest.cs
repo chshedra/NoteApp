@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NoteApp;
-//TODO: NoteApp или NotesApp?
-namespace NotesApp.UnitTests
+//TODO: +NoteApp или NotesApp?
+namespace NoteApp.UnitTests
 {
     [TestFixture]
     public class NoteTest
     {
         private Note _note;
-        //TODO: setup лучше не использовать, разве в методичке этого не сказано?
-        [SetUp]
+        //TODO: +setup лучше не использовать, разве в методичке этого не сказано?
+        //не сказано((
+
         public void Note_Init()
         {
             _note = new Note();
@@ -22,6 +23,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест геттера Title")]
         public void TestTitleGet_CorrectValue()
         {
+            Note_Init();
+
             var expected = "NoteTitle";
             _note.Title = expected;
             var actual = _note.Title;
@@ -31,6 +34,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест сеттера Title")]
         public void TestTitleSet_CorrectValue()
         {
+            Note_Init();
+
             var expected = "NoteTitle";
             _note.Title = expected;
             Assert.AreEqual(expected, _note.Title, "Сеттер Title устанавливает " +
@@ -40,6 +45,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Присвоение неправильной фамилии более 50 символов")]
         public void TestTitleSet_Longer50Symbols()
         {
+            Note_Init();
+
             var wrongTitle = "TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle";
             Assert.Throws<ArgumentException>(
                 () => { _note.Title = wrongTitle; },
@@ -49,6 +56,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест геттра Text")]
         public void TestTextGet_Positive()
         {
+            Note_Init();
+
             var expected = "NoteCategory";
             _note.Text = expected;
             var actual = _note.Text;
@@ -58,6 +67,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест сеттера Text")]
         public void TestTextSet_CorrectValue()
         {
+            Note_Init();
+
             var expected = "NoteText";
             _note.Text = expected;
             Assert.AreEqual(expected, _note.Text, "Сеттер Text устанавливает неправильное значение");
@@ -66,6 +77,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест геттра Category")]
         public void TestCategoryGet_Positive()
         {
+            Note_Init();
+
             var expected = NoteCategory.Other;
             _note.Category = expected;
             var actual = _note.Category;
@@ -75,6 +88,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест сеттера Category")]
         public void TestCategorySet_CorrectValue()
         {
+            Note_Init();
+
             var expected = NoteCategory.Other;
             _note.Category = expected;
             Assert.AreEqual(expected, _note.Category, "Сеттер Text устанавливает " +
@@ -84,10 +99,10 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест сеттера Created")]
         public void TestCreatedSet_CorrectValue()
         {
+            Note_Init();
+
             var expected = DateTime.Now;
-
             var actual= _note.Created;
-
             Assert.AreEqual(expected, actual, "Сеттер Created устанавливает " +
              "неправильное значение");
         }
@@ -96,10 +111,10 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест геттера Created")]
         public void TestCreatedGet_CorrectValue()
         {
+            Note_Init();
+
             var expected = DateTime.Now;
-
             var actual = _note.Created;
-
             Assert.AreEqual(expected, actual, "Геттер Created устанавливает " +
              "неправильное значение");
         }
@@ -107,6 +122,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест сеттера Created")]
         public void TestModifiedSet_CorrectValue()
         {
+            Note_Init();
+
             var expected = DateTime.Now;
             _note.Title = "SetTime";
             var actual = _note.Modified;
@@ -117,6 +134,8 @@ namespace NotesApp.UnitTests
         [Test(Description = "Позитивный тест геттера Created")]
         public void TestModifiedGet_CorrectValue()
         {
+            Note_Init();
+
             var expected = DateTime.Now;
             _note.Title = "SetTime";
             var actual = _note.Modified;
@@ -125,9 +144,10 @@ namespace NotesApp.UnitTests
         }
 
         [Test(Description = "Позитивный тест метода Clone")]
-    
         public void TestClone_CorrectValue()
         {
+            Note_Init();
+
             Note expected = _note;
             var actual = (Note)_note.Clone();
 

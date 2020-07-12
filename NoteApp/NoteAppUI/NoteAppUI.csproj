@@ -119,5 +119,14 @@
   <ItemGroup>
     <None Include="Resources\Files-Delete-File-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\computer-icons-chart-infograph-png-clip-art-thumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\contract-signing-2-512.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

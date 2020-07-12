@@ -17,23 +17,24 @@ namespace NoteApp
         /// Хранит путь к файлу для записи
         /// </summary>
 		public static string DefaultPath { get; private set; } =
-			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-				"\\NoteApp\\NoteApp.txt");
+			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
+				"\\NoteApp\\NoteApp.note";
 
 		/// <summary>
 		/// Метод, сохраняющий объекты класса Note
 		/// </summary>
 		public static void SaveToFile(Project project, string filename)
-        { //TODO: часто дублируется название папки - если надо будет изменить, то велика вероятность накосячить. Лучше вынести в константу-литерал
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\NoteApp"))
+        { //TODO: +часто дублируется название папки - если надо будет изменить, то велика вероятность накосячить. Лучше вынести в константу-литерал
+			string DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+				"\\NoteApp";
+
+			if (!Directory.Exists(DefaultDirectory))
 			{
-				Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
-					"\\NoteApp");
-				
+				Directory.CreateDirectory(DefaultDirectory);
 			}
 
 			JsonSerializer serializer = new JsonSerializer();
-			using (StreamWriter sw = new StreamWriter(filename)) //TODO: при закрытии программы в этой строке вылетает исключение. (файл почему-то ищется на диске С)
+			using (StreamWriter sw = new StreamWriter(filename)) //TODO: +при закрытии программы в этой строке вылетает исключение. (файл почему-то ищется на диске С)
             using (JsonWriter writer = new JsonTextWriter(sw))
 			{ 
 				serializer.Serialize(writer, project);
@@ -45,7 +46,7 @@ namespace NoteApp
 		/// </summary>
 		public static Project LoadFromFile(string filename)
 		{
-            //TODO: нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен (НЕ ИСПРАВЛЕНО)
+            //TODO: +нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен (НЕ ИСПРАВЛЕНО)
 			Project project = null;
 
 			if (File.Exists(filename))
@@ -58,6 +59,10 @@ namespace NoteApp
 
 					project = (Project)serializer.Deserialize<Project>(reader);
 				}
+			}
+			else
+			{
+				project = new Project();
 			}
 			return project;
 		}

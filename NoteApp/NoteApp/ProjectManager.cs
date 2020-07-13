@@ -49,21 +49,21 @@ namespace NoteApp
             //TODO: +нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен (НЕ ИСПРАВЛЕНО)
 			Project project = null;
 
-			if (File.Exists(filename))
+			try
 			{
 				JsonSerializer serializer = new JsonSerializer();
 
 				using (StreamReader sr = new StreamReader(filename))
 				using (JsonReader reader = new JsonTextReader(sr))
 				{
-
 					project = (Project)serializer.Deserialize<Project>(reader);
 				}
 			}
-			else
+			catch(JsonException exeption)
 			{
 				project = new Project();
 			}
+		
 			return project;
 		}
 

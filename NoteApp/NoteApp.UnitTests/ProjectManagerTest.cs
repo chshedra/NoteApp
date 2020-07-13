@@ -80,7 +80,6 @@ namespace NoteApp.UnitTests
 			_project = new Project();
 			Create_Etalon_File();
 
-			var lastFolder = Path.GetDirectoryName(_location);
 			var path = "Path";
 
 			if (File.Exists(path))
@@ -91,6 +90,42 @@ namespace NoteApp.UnitTests
 			var project = new Project();
 
 			ProjectManager.SaveToFile(project, path);
+
+			var loadProject = ProjectManager.LoadFromFile(path);
+
+			Assert.AreEqual(_project.CurrentNote, project.CurrentNote, "Метод LoadFromFile " +
+				"загружает неправильные данный");
+			Assert.AreEqual(_project.NoteList, project.NoteList, "Метод LoadFromFile " +
+				"загружает неправильные данный");
+		}
+
+		[Test(Description = "Позитивный тест метод LoadFromFile с поврежденным файлом. " +
+			"Должен вернуть пустой проект")]
+		public void TestLoadFromFile_DamageFile()
+		{
+			_project = new Project();
+			Create_Etalon_File();
+
+			var lastFolder = Path.GetDirectoryName(_location);
+			var path = Path.GetDirectoryName(lastFolder) +
+				"//TestData//SaveTestData.txt";
+
+			if (File.Exists(path))
+			{
+				File.Delete(path);
+			}
+
+			var project = new Project();
+			var note = new Note();
+
+
+			using (FileStream fstream = new FileStream(path, FileMode.OpenOrCreate))
+			{
+				byte[] array = System.Text.Encoding.Default.GetBytes("SomeData");
+				fstream.Write(array, 0, array.Length);
+				Console.WriteLine("Текст записан в файл");
+			}
+
 
 			var loadProject = ProjectManager.LoadFromFile(path);
 

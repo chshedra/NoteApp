@@ -116,14 +116,11 @@ namespace NoteApp.UnitTests
 			}
 
 			var project = new Project();
-			var note = new Note();
-
 
 			using (FileStream fstream = new FileStream(path, FileMode.OpenOrCreate))
 			{
 				byte[] array = System.Text.Encoding.Default.GetBytes("SomeData");
 				fstream.Write(array, 0, array.Length);
-				Console.WriteLine("Текст записан в файл");
 			}
 
 

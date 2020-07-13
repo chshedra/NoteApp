@@ -21,6 +21,10 @@ namespace NoteAppUI
 		/// </summary>
         private Project _project;
 
+		/// <summary>
+		/// Коллекция объектов Note для хранения заметок по выбранной категории
+		/// </summary>
+		private List<Note> _categoryNoteList;
 
 		/// <summary>
 		/// Конструктор формы MainForm
@@ -41,18 +45,14 @@ namespace NoteAppUI
 		private void NoteListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
-
 			if (selectedIndex > -1)
 			{
-				foreach (Note note in _project.NoteList)
-				{
-					TitleLabel.Text = _project.NoteList[selectedIndex].Title;
-					NoteTextBox.Text = _project.NoteList[selectedIndex].Text;
-					CategoryLabel.Text = "Category: " +
-						_project.NoteList[selectedIndex].Category.ToString();
-					CreatedDateTimePicker.Value = _project.NoteList[selectedIndex].Created;
-					ModifiedDateTimePicker.Value = _project.NoteList[selectedIndex].Modified;
-				}
+				TitleLabel.Text = _categoryNoteList[selectedIndex].Title;
+				NoteTextBox.Text = _categoryNoteList[selectedIndex].Text;
+				CategoryLabel.Text = "Category: " +
+					_categoryNoteList[selectedIndex].Category.ToString();
+				CreatedDateTimePicker.Value = _categoryNoteList[selectedIndex].Created;
+				ModifiedDateTimePicker.Value = _categoryNoteList[selectedIndex].Modified;
 			}
 		}
 
@@ -70,12 +70,13 @@ namespace NoteAppUI
 			if (noteForm.DialogResult == DialogResult.OK)
 			{
 				var created = noteForm.Note;
-				_project.NoteList.Add(created);
-				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+				_project.NoteList.Insert(0, created);
+				_project.CurrentNote = created;
+				ProjectManager.SaveToFile(_project, ProjectManager.DefaultPath);
 
-				NoteListBox.Items.Add(created.Title);
-
-				NoteListBox.SelectedIndex = NoteListBox.Items.Count - 1;
+				NoteListBox.Items.Insert(0, created.Title);
+				
+				NoteListBox.SelectedIndex = 0;
 			}
 		}
 
@@ -101,46 +102,21 @@ namespace NoteAppUI
 				_project.NoteList.RemoveAt(selectedIndex);
 
 				_project.NoteList.Insert(selectedIndex, updateNote);
-				NoteListBox.Items.Insert(selectedIndex, updateNote.Title);
-				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+				_project.NoteList = _project.SortNote();
+				_project.CurrentNote = updateNote;
 
-				NoteListBox.SelectedIndex = selectedIndex;
+
+				NoteListBox.Items.Insert(0, updateNote.Title);
+
+				ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+
+				NoteListBox.SelectedIndex = 0;
 			}
 		}
 
 		private void RemoveButton_Click(object sender, EventArgs e)
         { //TODO: +код проверки выбранной заметки дублируется с кодом выше. Вынести в метод\
-			var selectedIndex = NoteListBox.SelectedIndex;
-
-			if(IsNoteExists(selectedIndex) == false)
-			{
-				return;
-			}
-
-			DialogResult result = MessageBox.Show("Do you really want delete this note: " + 
-				_project.NoteList[selectedIndex].Title, "Message", 
-					MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-			if (result == DialogResult.OK)
-			{
-				_project.NoteList.RemoveAt(selectedIndex);
-				if (NoteListBox.Items.Count > 0)
-				{
-					NoteListBox.SelectedIndex = 0;
-				}
-				else
-				{
-					TitleLabel.Text = "Title";
-					NoteTextBox.Text = null;
-					CategoryLabel.Text = "Category: ";
-					CreatedDateTimePicker.Value = DateTime.Now;
-					ModifiedDateTimePicker.Value = DateTime.Now;
-				}
-
-				NoteListBox.Items.RemoveAt(selectedIndex);
-
-				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
-			}
+			DeleteOperation();
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -151,9 +127,10 @@ namespace NoteAppUI
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
-            //TODO: +вот и почему пустой проект не создавать в менеджере? Из-за всяких null у тебя часть бизнес-логики вылазит в формы - неправильно
-            
-             //TODO: +делай форич везде, где это возможно
+			//TODO: +вот и почему пустой проект не создавать в менеджере? Из-за всяких null у тебя часть бизнес-логики вылазит в формы - неправильно
+			_project.NoteList = _project.SortNote();
+			_categoryNoteList = _project.NoteList;
+			//TODO: +делай форич везде, где это возможно
 			foreach (Note note in _project.NoteList)
 			{
 				NoteListBox.Items.Add(note.Title);
@@ -161,9 +138,7 @@ namespace NoteAppUI
 				{
 					NoteListBox.SelectedIndex = _project.NoteList.IndexOf(note);
 				}
-			}
-				
-			
+			}	
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,7 +147,7 @@ namespace NoteAppUI
 			{
 				_project.CurrentNote = _project.NoteList[NoteListBox.SelectedIndex];
 			}
-			NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
+			NoteApp.ProjectManager.SaveToFile(_project, ProjectManager.DefaultPath);
 		}
 
 		private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -180,7 +155,10 @@ namespace NoteAppUI
 			if (CategoryComboBox.SelectedItem.ToString() != "All")
 			{
 				NoteListBox.Items.Clear();
-				foreach (Note note in _project.NoteList)
+
+				_categoryNoteList = 
+					_project.SortNote((NoteCategory)CategoryComboBox.SelectedItem);
+				foreach (Note note in _categoryNoteList)
 				{
 					if (note.Category.ToString() == CategoryComboBox.SelectedItem.ToString())
 					{
@@ -188,6 +166,17 @@ namespace NoteAppUI
 					}
 				}
 			}
+			else
+			{
+				NoteListBox.Items.Clear();
+				_categoryNoteList = _project.SortNote();
+
+				foreach (Note note in _categoryNoteList)
+				{
+					NoteListBox.Items.Add(note.Title);
+				}
+			}
+			NoteListBox.SelectedIndex = 0;
 		}
 
 		private bool IsNoteExists(int selectedIndex)
@@ -203,6 +192,62 @@ namespace NoteAppUI
 			else
 			{
 				return true;
+			}
+		}
+
+		private void MainForm_KeyDown(object sender, KeyEventArgs e)
+		{
+			if(e.KeyCode.ToString() == "Delete")
+			{
+				DeleteOperation();
+			}
+			
+		}
+
+		/// <summary>
+		/// Метод, используемый обработчиками события удаления
+		/// </summary>
+		private void DeleteOperation()
+		{
+			var selectedIndex = NoteListBox.SelectedIndex;
+
+			if (IsNoteExists(selectedIndex) == false)
+			{
+				return;
+			}
+
+			DialogResult result = MessageBox.Show("Do you really want delete this note: " +
+				_project.NoteList[selectedIndex].Title, "Message",
+					MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+			if (result == DialogResult.OK)
+			{
+				foreach (Note note in _project.NoteList)
+				{
+					if (note.Created == _categoryNoteList[selectedIndex].Created)
+					{
+						var removeIndex = _project.NoteList.IndexOf(note);
+						_project.NoteList.RemoveAt(removeIndex);
+						break;
+					}
+				}
+				if (NoteListBox.Items.Count > 0)
+				{
+					NoteListBox.SelectedIndex = 0;
+				}
+				else
+				{
+					TitleLabel.Text = "Title";
+					NoteTextBox.Text = null;
+					CategoryLabel.Text = "Category: ";
+					CreatedDateTimePicker.Value = DateTime.Now;
+					ModifiedDateTimePicker.Value = DateTime.Now;
+				}
+
+				_categoryNoteList = _project.NoteList;
+				NoteListBox.Items.RemoveAt(selectedIndex);
+				NoteListBox.SelectedIndex = 0;
+				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
 			}
 		}
 	}

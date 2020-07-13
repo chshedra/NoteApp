@@ -48,13 +48,13 @@
 			this.CreatedDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.TitleLabel = new System.Windows.Forms.Label();
 			this.ButtonsPanel = new System.Windows.Forms.Panel();
+			this.RemoveButton = new System.Windows.Forms.Button();
+			this.EditButton = new System.Windows.Forms.Button();
+			this.AddButton = new System.Windows.Forms.Button();
 			this.MainFormSplitCantainer = new System.Windows.Forms.SplitContainer();
 			this.ShowCategoryLabel = new System.Windows.Forms.Label();
 			this.CategoryComboBox = new System.Windows.Forms.ComboBox();
 			this.NoteTextBox = new System.Windows.Forms.TextBox();
-			this.RemoveButton = new System.Windows.Forms.Button();
-			this.EditButton = new System.Windows.Forms.Button();
-			this.AddButton = new System.Windows.Forms.Button();
 			this.MainFormStripMenu.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.ButtonsPanel.SuspendLayout();
@@ -230,6 +230,49 @@
 			this.ButtonsPanel.Size = new System.Drawing.Size(255, 37);
 			this.ButtonsPanel.TabIndex = 7;
 			// 
+			// RemoveButton
+			// 
+			this.RemoveButton.BackColor = System.Drawing.Color.Transparent;
+			this.RemoveButton.BackgroundImage = global::NoteAppUI.Properties.Resources.Files_Delete_File_icon;
+			this.RemoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.RemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.RemoveButton.ForeColor = System.Drawing.Color.Transparent;
+			this.RemoveButton.Location = new System.Drawing.Point(88, 1);
+			this.RemoveButton.Name = "RemoveButton";
+			this.RemoveButton.Size = new System.Drawing.Size(38, 33);
+			this.RemoveButton.TabIndex = 2;
+			this.RemoveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+			this.RemoveButton.UseVisualStyleBackColor = false;
+			this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
+			// 
+			// EditButton
+			// 
+			this.EditButton.BackColor = System.Drawing.Color.Transparent;
+			this.EditButton.BackgroundImage = global::NoteAppUI.Properties.Resources.contract_signing_2_512;
+			this.EditButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.EditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.EditButton.ForeColor = System.Drawing.Color.Transparent;
+			this.EditButton.Location = new System.Drawing.Point(45, 0);
+			this.EditButton.Name = "EditButton";
+			this.EditButton.Size = new System.Drawing.Size(37, 34);
+			this.EditButton.TabIndex = 1;
+			this.EditButton.UseVisualStyleBackColor = false;
+			this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+			// 
+			// AddButton
+			// 
+			this.AddButton.BackColor = System.Drawing.Color.Transparent;
+			this.AddButton.BackgroundImage = global::NoteAppUI.Properties.Resources._13787;
+			this.AddButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.AddButton.ForeColor = System.Drawing.Color.Transparent;
+			this.AddButton.Location = new System.Drawing.Point(3, 0);
+			this.AddButton.Name = "AddButton";
+			this.AddButton.Size = new System.Drawing.Size(36, 34);
+			this.AddButton.TabIndex = 0;
+			this.AddButton.UseVisualStyleBackColor = false;
+			this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+			// 
 			// MainFormSplitCantainer
 			// 
 			this.MainFormSplitCantainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -292,49 +335,6 @@
 			this.NoteTextBox.Size = new System.Drawing.Size(470, 319);
 			this.NoteTextBox.TabIndex = 0;
 			// 
-			// RemoveButton
-			// 
-			this.RemoveButton.BackColor = System.Drawing.Color.Transparent;
-			this.RemoveButton.BackgroundImage = global::NoteAppUI.Properties.Resources.Files_Delete_File_icon;
-			this.RemoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.RemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RemoveButton.ForeColor = System.Drawing.Color.Transparent;
-			this.RemoveButton.Location = new System.Drawing.Point(88, 1);
-			this.RemoveButton.Name = "RemoveButton";
-			this.RemoveButton.Size = new System.Drawing.Size(38, 33);
-			this.RemoveButton.TabIndex = 2;
-			this.RemoveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-			this.RemoveButton.UseVisualStyleBackColor = false;
-			this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
-			// 
-			// EditButton
-			// 
-			this.EditButton.BackColor = System.Drawing.Color.Transparent;
-			this.EditButton.BackgroundImage = global::NoteAppUI.Properties.Resources.contract_signing_2_512;
-			this.EditButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.EditButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.EditButton.ForeColor = System.Drawing.Color.Transparent;
-			this.EditButton.Location = new System.Drawing.Point(45, 0);
-			this.EditButton.Name = "EditButton";
-			this.EditButton.Size = new System.Drawing.Size(37, 34);
-			this.EditButton.TabIndex = 1;
-			this.EditButton.UseVisualStyleBackColor = false;
-			this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
-			// 
-			// AddButton
-			// 
-			this.AddButton.BackColor = System.Drawing.Color.Transparent;
-			this.AddButton.BackgroundImage = global::NoteAppUI.Properties.Resources._13787;
-			this.AddButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddButton.ForeColor = System.Drawing.Color.Transparent;
-			this.AddButton.Location = new System.Drawing.Point(3, 0);
-			this.AddButton.Name = "AddButton";
-			this.AddButton.Size = new System.Drawing.Size(36, 34);
-			this.AddButton.TabIndex = 0;
-			this.AddButton.UseVisualStyleBackColor = false;
-			this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,6 +344,7 @@
 			this.Controls.Add(this.MainFormStripMenu);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.IsMdiContainer = true;
+			this.KeyPreview = true;
 			this.MainMenuStrip = this.MainFormStripMenu;
 			this.MaximumSize = new System.Drawing.Size(1000, 700);
 			this.MinimumSize = new System.Drawing.Size(800, 500);
@@ -351,6 +352,7 @@
 			this.Text = "NoteApp";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.Load += new System.EventHandler(this.MainForm_Load);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
 			this.MainFormStripMenu.ResumeLayout(false);
 			this.MainFormStripMenu.PerformLayout();
 			this.panel1.ResumeLayout(false);

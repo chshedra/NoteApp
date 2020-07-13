@@ -59,7 +59,7 @@ namespace NoteApp
 					project = (Project)serializer.Deserialize<Project>(reader);
 				}
 			}
-			catch(JsonException exeption)
+			catch(JsonException)
 			{
 				project = new Project();
 			}

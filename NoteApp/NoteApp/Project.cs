@@ -15,16 +15,15 @@ namespace NoteApp
 		/// Устанавливает и возвращает список объектов класса Note
 		/// </summary>
 		public List<Note> NoteList { get; set; } = new List<Note>();
-		//TODO: +вместо конструктора можно сделать значения для свойства по умолчанию
 
-		public Note CurrentNote { get; set; }
+        public Note CurrentNote { get; set; }
 
 		/// <summary>
 		/// Метод, сортирующий заметки по дате редактирования
 		/// </summary>
 		/// <returns>List<Note></Note></returns>
-		public List<Note> SortNote()
-		{
+		public List<Note> SortNote() //TODO:  именование - сортируется только одна заметка?
+        {
 			NoteList.Sort(new NoteCompare());
 			return NoteList;
 		}
@@ -34,8 +33,8 @@ namespace NoteApp
 		/// </summary>
 		/// <param name="category"></param>
 		/// <returns>List<Note></returns>
-		public List<Note> SortNote(NoteCategory category)
-		{
+		public List<Note> SortNote(NoteCategory category) //TODO: именование
+        {
 			List<Note> categoryListNote = new List<Note>();
 			foreach (Note note in NoteList)
 			{

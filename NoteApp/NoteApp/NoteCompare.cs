@@ -9,8 +9,8 @@ namespace NoteApp
 	/// <summary>
 	/// Класс <see cref="NoteCompare"/> задающий условия сортировки списка
 	/// </summary>
-	public class NoteCompare: IComparer<Note>
-	{
+	public class NoteCompare: IComparer<Note> //TODO: название класса от глагола, а должно быть от существительного. См. на название интерфейса
+    {
 		/// <summary>
 		/// Перегруженный метод, задающий условия сортировки списка
 		/// </summary>
@@ -19,7 +19,8 @@ namespace NoteApp
 		/// <returns></returns>
 		public int Compare(Note note1, Note note2)
 		{
-			if (note1.Modified < note2.Modified)
+            //TODO: реализуя компараторы, надо проверять, нет ли в агрегируемом классе готового метода CompareTo() - разобраться и сделать реализацию проще
+            if (note1.Modified < note2.Modified)
 			{
 				return 1;
 			}

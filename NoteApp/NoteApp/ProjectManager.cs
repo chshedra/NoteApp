@@ -24,7 +24,7 @@ namespace NoteApp
 		/// Метод, сохраняющий объекты класса Note
 		/// </summary>
 		public static void SaveToFile(Project project, string filename)
-        { //TODO: +часто дублируется название папки - если надо будет изменить, то велика вероятность накосячить. Лучше вынести в константу-литерал
+        {
 			string DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
 				"\\NoteApp";
 
@@ -34,7 +34,7 @@ namespace NoteApp
 			}
 
 			JsonSerializer serializer = new JsonSerializer();
-			using (StreamWriter sw = new StreamWriter(filename)) //TODO: +при закрытии программы в этой строке вылетает исключение. (файл почему-то ищется на диске С)
+			using (StreamWriter sw = new StreamWriter(filename))
             using (JsonWriter writer = new JsonTextWriter(sw))
 			{ 
 				serializer.Serialize(writer, project);
@@ -46,8 +46,7 @@ namespace NoteApp
 		/// </summary>
 		public static Project LoadFromFile(string filename)
 		{
-            //TODO: +нужно сделать возврат пустого проекта, если файл не существует или не может быть прочтен (НЕ ИСПРАВЛЕНО)
-			Project project = null;
+            Project project = null;
 
 			try
 			{
@@ -60,8 +59,8 @@ namespace NoteApp
 				}
 			}
 			catch(JsonException)
-			{
-				project = new Project();
+            { //TODO: если файл не существует, то будет вылетать другой тип исключения
+                project = new Project();
 			}
 		
 			return project;

@@ -10,13 +10,15 @@ using NoteApp;
 
 namespace NoteApp.UnitTests
 {
-	[TestFixture]
+    //TODO: неправильная работа с эталонными файлами - файлы не копируются в выходную папку, а сами файлы пустые
+    [TestFixture]
 	class ProjectManagerTest
 	{
 		private string _location;
 		private Project _project;
-		
-		private Project Init_Project()
+
+        //TODO: именование метода
+        private Project Init_Project()
 		{
 			var project = new Project();
 			Note note = new Note();
@@ -27,14 +29,15 @@ namespace NoteApp.UnitTests
 			return project;
 		}
 
-		private void Create_Etalon_File()
+        //TODO: именование метода
+        private void Create_Etalon_File()
 		{
 			_location = Assembly.GetExecutingAssembly().Location;
 			var lastFolder = Path.GetDirectoryName(_location);
-			_location = Path.GetDirectoryName(lastFolder) + 
-				"//Debug//TestData//TestData.txt";
-
-			ProjectManager.SaveToFile(_project, _location);
+			_location = Path.GetDirectoryName(lastFolder) + //TODO: зачем второй раз вызов того же метода?
+                "//Debug//TestData//TestData.txt";
+            //TODO: то есть в каждом тесте вызывается сохранение файла? Даже в загрузке? Вызывать больше одного метода из тестируемого класса - плохо. Используй заранее созданные эталонные файлы
+            ProjectManager.SaveToFile(_project, _location);
 		}
 
 		[Test(Description = "Позитивный тест метод LoadFromFile с существующим путем." +
@@ -54,8 +57,8 @@ namespace NoteApp.UnitTests
 			}
 
 			var project = _project;
-
-			ProjectManager.SaveToFile(project, path);
+            //TODO: не должно в тестировании загрузки файла использоваться сохранение файла
+            ProjectManager.SaveToFile(project, path);
 
 			var loadProject = ProjectManager.LoadFromFile(path);
 
@@ -88,8 +91,8 @@ namespace NoteApp.UnitTests
 			}
 
 			var project = new Project();
-
-			ProjectManager.SaveToFile(project, path);
+            //TODO: опять тестирование загрузки файла через сохранение файла - неправильно
+            ProjectManager.SaveToFile(project, path);
 
 			var loadProject = ProjectManager.LoadFromFile(path);
 
@@ -156,8 +159,8 @@ namespace NoteApp.UnitTests
 
 		[Test(Description = "Позитивный тест метод SaveToFile с несуществующим путем")]
 		public void TestSaveToFile_NonExistentPath()
-		{
-			var project = Init_Project();
+        { //TODO: зачем проверять сохранение по несуществующему пути? В чем разница сохранения по существующему пути и несуществующему?
+            var project = Init_Project();
 			_project = Init_Project();
 			Create_Etalon_File();
 

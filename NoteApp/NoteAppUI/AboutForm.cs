@@ -15,7 +15,6 @@ namespace NoteAppUI
 		public AboutForm()
 		{
 			InitializeComponent();
-		
 		}
 
 		private void EmailLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

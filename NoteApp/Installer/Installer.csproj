@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Tools.InnoSetup.6.0.5\build\Tools.InnoSetup.props" Condition="Exists('..\packages\Tools.InnoSetup.6.0.5\build\Tools.InnoSetup.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{72797ADE-564D-43A6-AA0A-9252BC80B035}</ProjectGuid>
+    <ProjectGuid>{A306F3F2-56CC-4E6F-BA0C-4D84CC0E9B48}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>NoteAppUI</RootNamespace>
-    <AssemblyName>NoteAppUI</AssemblyName>
+    <RootNamespace>Installer</RootNamespace>
+    <AssemblyName>Installer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,35 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NoteForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NoteForm.Designer.cs">
-      <DependentUpon>NoteForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NoteForm.resx">
-      <DependentUpon>NoteForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -83,8 +59,8 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,43 +75,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NoteApp\NoteApp.csproj">
-      <Project>{2ff4a2a8-6e41-4345-80f4-fa0557f60cc4}</Project>
-      <Name>NoteApp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\13787.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\загружено %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\kisspng-computer-icons-json-delete-icon-5b4b9d7dccad61.4160090415316821738384.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\kisspng-computer-icons-json-delete-icon-5b4b9d7dccad61.41600904153168217383841.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Files-Delete-File-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\computer-icons-chart-infograph-png-clip-art-thumbnail.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EditIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\contract-signing-2-512.png" />
+    <Content Include="NoteAppSetup.iss" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Tools.InnoSetup.6.0.5\build\Tools.InnoSetup.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Tools.InnoSetup.6.0.5\build\Tools.InnoSetup.props'))" />
+  </Target>
   <PropertyGroup>
     <PreBuildEvent>
-</PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(ProjectDir)$(OutDir)*.dll $(SolutionDir)Installer\$(OutDir)
-
-</PostBuildEvent>
+    <PostBuildEvent>"$(SolutioDir)packages\Tools.InnoSetup.6.0.5\tools\ISCC.exe"
+$(SolutionDir)\Installer\NoteAppSetup.iss</PostBuildEvent>
   </PropertyGroup>
 </Project>

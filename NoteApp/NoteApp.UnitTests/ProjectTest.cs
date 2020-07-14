@@ -44,7 +44,7 @@ namespace NoteApp.UnitTests
 				"или возвращает неправильное название");
 		}
 
-		[Test(Description = "Позитивный тест метода SortNote без параметров")]
+		[Test(Description = "Позитивный тест метода SortNoteList без параметров")]
 		public void TestSortNote_WithoutParam()
 		{
 			_project = new Project();
@@ -58,18 +58,18 @@ namespace NoteApp.UnitTests
 			actual.NoteList[1].Title = "ChangedTitle";
 			actual.NoteList[3].Title = "ChangedTitle";
 
-			actual.NoteList = actual.SortNote();
+			actual.NoteList = actual.SortNoteList();
 
 			for (int i = 0; i < 5; i++)
 			{
 				Assert.AreEqual(expected.NoteList[i].Created, actual.NoteList[i].Created,
-					"Функция SortNote неправильно сортирует список");
+					"Функция SortNoteList неправильно сортирует список");
 			}
 		}
 
 	
 
-		[Test(Description = "Позитивный тест метода SortNote с параметрами")]
+		[Test(Description = "Позитивный тест метода SortNoteList с параметрами")]
 		public void TestSortNote_WithParam()
 		{
 			_project = new Project();
@@ -86,12 +86,12 @@ namespace NoteApp.UnitTests
 			anotherCategory.Category = NoteCategory.Documents;
 
 
-			actual.NoteList = actual.SortNote(NoteCategory.Other);
+			actual.NoteList = actual.SortNoteList(NoteCategory.Other);
 
 			for (int i = 0; i < 5; i++)
 			{
 				Assert.AreEqual(expected.NoteList[i].Created, actual.NoteList[i].Created,
-					"Функция SortNote неправильно сортирует список");
+					"Функция SortNoteList неправильно сортирует список");
 			}
 		}
 	}

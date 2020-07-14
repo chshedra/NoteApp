@@ -10,95 +10,63 @@ using NoteApp;
 
 namespace NoteApp.UnitTests
 {
-    //TODO: неправильная работа с эталонными файлами - файлы не копируются в выходную папку, а сами файлы пустые
-    [TestFixture]
+	//TODO: +неправильная работа с эталонными файлами - файлы не копируются в выходную папку, а сами файлы пустые
+	[TestFixture]
 	class ProjectManagerTest
 	{
-		private string _location;
-		private Project _project;
+		private string _location = Path.GetDirectoryName
+			(Assembly.GetExecutingAssembly().Location) + "//TestData//TestData.txt";
+		private string _savePath = Path.GetDirectoryName
+			(Assembly.GetExecutingAssembly().Location) + "//TestData//SaveTestData.txt";
+		
 
-        //TODO: именование метода
-        private Project Init_Project()
+		//TODO: +именование метода
+		private Project InitProject()
 		{
 			var project = new Project();
-			Note note = new Note();
-			List<Note> noteList = new List<Note>();
-			noteList.Add(note);
-			project.NoteList = noteList;
-
+			var note = new Note("Name",null, NoteCategory.Other, 
+				new DateTime(), new DateTime());
+			project.NoteList.Add(note);
 			return project;
 		}
 
-        //TODO: именование метода
-        private void Create_Etalon_File()
-		{
-			_location = Assembly.GetExecutingAssembly().Location;
-			var lastFolder = Path.GetDirectoryName(_location);
-			_location = Path.GetDirectoryName(lastFolder) + //TODO: зачем второй раз вызов того же метода?
-                "//Debug//TestData//TestData.txt";
-            //TODO: то есть в каждом тесте вызывается сохранение файла? Даже в загрузке? Вызывать больше одного метода из тестируемого класса - плохо. Используй заранее созданные эталонные файлы
-            ProjectManager.SaveToFile(_project, _location);
-		}
 
 		[Test(Description = "Позитивный тест метод LoadFromFile с существующим путем." +
 			"Должен вернуть проект со значениями")]
 		public void TestLoadFromFile_ExistentPath()
 		{
-			_project = Init_Project();
-			Create_Etalon_File();
+			var expected = InitProject();
+			//TODO: +не должно в тестировании загрузки файла использоваться сохранение файла
+			var actual = ProjectManager.LoadFromFile(_location);
 
-			var lastFolder = Path.GetDirectoryName(_location);
-			var path = Path.GetDirectoryName(lastFolder) +
-				"//TestData//SaveTestData.txt";
-
-			if (File.Exists(path))
-			{
-				File.Delete(path);
-			}
-
-			var project = _project;
-            //TODO: не должно в тестировании загрузки файла использоваться сохранение файла
-            ProjectManager.SaveToFile(project, path);
-
-			var loadProject = ProjectManager.LoadFromFile(path);
-
-			Assert.AreEqual(_project.CurrentNote, project.CurrentNote, "Метод LoadFromFile " +
+			Assert.AreEqual(expected.CurrentNote, actual.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
-			Assert.AreEqual(_project.NoteList[0].Title, project.NoteList[0].Title, 
+			Assert.AreEqual(expected.NoteList[0].Title, actual.NoteList[0].Title,
 				"Метод LoadFromFile загружает неправильные данныe");
-			Assert.AreEqual(_project.NoteList[0].Text, project.NoteList[0].Text, 
-				"Метод LoadFromFile загружает неправильные данный");
-			Assert.AreEqual(_project.NoteList[0].Category, project.NoteList[0].Category, 
-				"Метод LoadFromFile загружает неправильные данный");
-			Assert.AreEqual(_project.NoteList[0].Created, project.NoteList[0].Created, 
-				"Метод LoadFromFile загружает неправильные данный");
-			Assert.AreEqual(_project.NoteList[0].Modified, project.NoteList[0].Modified, 
-				"Метод LoadFromFile загружает неправильные данный");
+			Assert.AreEqual(expected.NoteList[0].Text, actual.NoteList[0].Text,
+				"Метод LoadFromFile загружает неправильные данныe");
+			Assert.AreEqual(expected.NoteList[0].Category, actual.NoteList[0].Category,
+				"Метод LoadFromFile загружает неправильные данныe");
+			Assert.AreEqual(expected.NoteList[0].Created, actual.NoteList[0].Created,
+				"Метод LoadFromFile загружает неправильные данныe");
+			Assert.AreEqual(expected.NoteList[0].Modified, actual.NoteList[0].Modified,
+				"Метод LoadFromFile загружает неправильные данныe");
+
 		}
 
 		[Test(Description = "Позитивный тест метод LoadFromFile с несуществующим путем. " +
 			"Должен вернуть пустой проект")]
 		public void TestLoadFromFile_NonExistentPath()
 		{
-			_project = new Project();
-			Create_Etalon_File();
+			var path = "ProjectManager.DefaultPath";
 
-			var path = "Path";
+			var expected = new Project();
+			//TODO: +опять тестирование загрузки файла через сохранение файла - неправильно
+			var actual = ProjectManager.LoadFromFile(path);
 
-			if (File.Exists(path))
-			{
-				File.Delete(path);
-			}
-
-			var project = new Project();
-            //TODO: опять тестирование загрузки файла через сохранение файла - неправильно
-            ProjectManager.SaveToFile(project, path);
-
-			var loadProject = ProjectManager.LoadFromFile(path);
-
-			Assert.AreEqual(_project.CurrentNote, project.CurrentNote, "Метод LoadFromFile " +
+			Assert.AreEqual(expected.CurrentNote, actual.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
-			Assert.AreEqual(_project.NoteList, project.NoteList, "Метод LoadFromFile " +
+			Assert.AreEqual(expected.NoteList, actual.NoteList, "Метод LoadFromFile " +
 				"загружает неправильные данный");
 		}
 
@@ -106,77 +74,41 @@ namespace NoteApp.UnitTests
 			"Должен вернуть пустой проект")]
 		public void TestLoadFromFile_DamageFile()
 		{
-			_project = new Project();
-			Create_Etalon_File();
+			var expected = new Project();
 
-			var lastFolder = Path.GetDirectoryName(_location);
-			var path = Path.GetDirectoryName(lastFolder) +
-				"//TestData//SaveTestData.txt";
-
-			if (File.Exists(path))
+			if(!File.Exists(_savePath))
 			{
-				File.Delete(path);
+				File.Create(_savePath);
 			}
 
-			var project = new Project();
-
-			using (FileStream fstream = new FileStream(path, FileMode.OpenOrCreate))
+			using (FileStream fstream = new FileStream(_savePath, FileMode.OpenOrCreate))
 			{
 				byte[] array = System.Text.Encoding.Default.GetBytes("SomeData");
 				fstream.Write(array, 0, array.Length);
 			}
 
+			var actual = ProjectManager.LoadFromFile(_savePath);
 
-			var loadProject = ProjectManager.LoadFromFile(path);
-
-			Assert.AreEqual(_project.CurrentNote, project.CurrentNote, "Метод LoadFromFile " +
+			Assert.AreEqual(actual.CurrentNote, expected.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
-			Assert.AreEqual(_project.NoteList, project.NoteList, "Метод LoadFromFile " +
+			Assert.AreEqual(actual.NoteList, expected.NoteList, "Метод LoadFromFile " +
 				"загружает неправильные данный");
 		}
 
-		[Test(Description = "Позитивный тест метод SaveToFile с существующим путем")]
+		[Test(Description = "Позитивный тест метод SaveToFile")]
 		public void TestSaveToFile_ExistentPath()
 		{
-			_project = Init_Project();
-			Create_Etalon_File();
-
-			var path = "Path";
-
-			if (File.Exists(path))
+			if(File.Exists(_savePath))
 			{
-				File.Delete(path);
+				File.Delete(_savePath);
 			}
 
-			var project = _project;
-			ProjectManager.SaveToFile(project, path);
+			var project = InitProject();
+
+			ProjectManager.SaveToFile(project, _savePath);
 
 			var expected = File.ReadAllText(_location);
-			var actual = File.ReadAllText(path);
-
-			Assert.AreEqual(expected, actual, "Метод SaveToFile сохраняет неверные данные");
-		}
-
-		[Test(Description = "Позитивный тест метод SaveToFile с несуществующим путем")]
-		public void TestSaveToFile_NonExistentPath()
-        { //TODO: зачем проверять сохранение по несуществующему пути? В чем разница сохранения по существующему пути и несуществующему?
-            var project = Init_Project();
-			_project = Init_Project();
-			Create_Etalon_File();
-
-			var lastFolder = Path.GetDirectoryName(_location);
-			var path = Path.GetDirectoryName(lastFolder) +
-				"//TestData//SaveTestData.txt";
-
-			if (File.Exists(path))
-			{
-				File.Delete(path);
-			}
-
-			ProjectManager.SaveToFile(project, path);
-
-			var expected = File.ReadAllText(_location);
-			var actual = File.ReadAllText(path);
+			var actual = File.ReadAllText(_savePath);
 
 			Assert.AreEqual(expected, actual, "Метод SaveToFile сохраняет неверные данные");
 		}

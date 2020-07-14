@@ -12,7 +12,7 @@ namespace NoteApp
     /// Класс <see cref="Note"/>, хранящий информацию о названии, тексте, категории, 
     /// времени создания и времени последнего изменения заметки
     /// </summary>
-    public class Note : ICloneable
+    public class Note : ICloneable, IComparable
     {
         /// <summary>
         /// Название заметки
@@ -126,6 +126,17 @@ namespace NoteApp
             Text = null;
             Category = NoteCategory.Other;
             Created = DateTime.Now;
+        }
+
+        /// <summary>
+        /// Метод, задающий условия сравнения коллекций
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int CompareTo(object obj)
+        {
+            Note note = obj as Note;
+            return this.Modified.CompareTo(note.Modified);
         }
     }
 }

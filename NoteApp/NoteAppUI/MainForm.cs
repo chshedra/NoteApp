@@ -102,7 +102,7 @@ namespace NoteAppUI
 				_project.NoteList.RemoveAt(selectedIndex);
 
 				_project.NoteList.Insert(selectedIndex, updateNote);
-				_project.NoteList = _project.SortNote();
+				_project.NoteList = _project.SortNoteList();
 				_project.CurrentNote = updateNote;
 
 
@@ -128,7 +128,7 @@ namespace NoteAppUI
 		{
 			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
 			//TODO: +вот и почему пустой проект не создавать в менеджере? Из-за всяких null у тебя часть бизнес-логики вылазит в формы - неправильно
-			_project.NoteList = _project.SortNote();
+			_project.NoteList = _project.SortNoteList();
 			_categoryNoteList = _project.NoteList;
 			//TODO: +делай форич везде, где это возможно
 			foreach (Note note in _project.NoteList)
@@ -157,7 +157,7 @@ namespace NoteAppUI
 				NoteListBox.Items.Clear();
 
 				_categoryNoteList = 
-					_project.SortNote((NoteCategory)CategoryComboBox.SelectedItem);
+					_project.SortNoteList((NoteCategory)CategoryComboBox.SelectedItem);
 				foreach (Note note in _categoryNoteList)
 				{
 					if (note.Category.ToString() == CategoryComboBox.SelectedItem.ToString())
@@ -169,7 +169,7 @@ namespace NoteAppUI
 			else
 			{
 				NoteListBox.Items.Clear();
-				_categoryNoteList = _project.SortNote();
+				_categoryNoteList = _project.SortNoteList();
 
 				foreach (Note note in _categoryNoteList)
 				{

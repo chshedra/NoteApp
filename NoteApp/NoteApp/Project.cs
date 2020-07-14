@@ -22,9 +22,9 @@ namespace NoteApp
 		/// Метод, сортирующий заметки по дате редактирования
 		/// </summary>
 		/// <returns>List<Note></Note></returns>
-		public List<Note> SortNote() //TODO:  именование - сортируется только одна заметка?
+		public List<Note> SortNoteList() //TODO:  +именование - сортируется только одна заметка?
         {
-			NoteList.Sort(new NoteCompare());
+			NoteList.Sort();
 			return NoteList;
 		}
 
@@ -33,7 +33,7 @@ namespace NoteApp
 		/// </summary>
 		/// <param name="category"></param>
 		/// <returns>List<Note></returns>
-		public List<Note> SortNote(NoteCategory category) //TODO: именование
+		public List<Note> SortNoteList(NoteCategory category) //TODO: +именование
         {
 			List<Note> categoryListNote = new List<Note>();
 			foreach (Note note in NoteList)
@@ -44,7 +44,7 @@ namespace NoteApp
 				}
 			}
 
-			categoryListNote.Sort(new NoteCompare());
+			categoryListNote.Sort();
 			return categoryListNote;
 		}
 	}

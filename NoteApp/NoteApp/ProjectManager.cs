@@ -50,22 +50,26 @@ namespace NoteApp
 
 			try
 			{
-				JsonSerializer serializer = new JsonSerializer();
-
-				using (StreamReader sr = new StreamReader(filename))
-				using (JsonReader reader = new JsonTextReader(sr))
+				if (!File.Exists(filename))
 				{
-					project = (Project)serializer.Deserialize<Project>(reader);
+					project = new Project();
+				}
+				else
+				{
+					JsonSerializer serializer = new JsonSerializer();
+
+					using (StreamReader sr = new StreamReader(filename))
+					using (JsonReader reader = new JsonTextReader(sr))
+					{
+						project = (Project)serializer.Deserialize<Project>(reader);
+					}
 				}
 			}
 			catch(JsonException)
-            { //TODO: если файл не существует, то будет вылетать другой тип исключения
+            { //TODO: +если файл не существует, то будет вылетать другой тип исключения
                 project = new Project();
 			}
-		
 			return project;
 		}
-
-	
 	}
 }

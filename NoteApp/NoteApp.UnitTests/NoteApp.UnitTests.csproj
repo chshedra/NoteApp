@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="TestData\SaveTestData.txt" />
     <Content Include="TestData\TestData.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

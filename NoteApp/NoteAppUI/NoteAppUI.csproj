@@ -134,8 +134,9 @@
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(ProjectDir)$(OutDir)*.dll $(SolutionDir)Installer\$(OutDir)
-
+    <PostBuildEvent>xcopy $(ProjectDir)$(OutDir)*.dll  $(SolutionDir)Installer\$(OutDir)
+xcopy $(ProjectDir)$(OutDir)*.exe  $(SolutionDir)Installer\$(OutDir)
+xcopy $(ProjectDir)..\Installer\*.ico  $(SolutionDir)Installer\$(OutDir)
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

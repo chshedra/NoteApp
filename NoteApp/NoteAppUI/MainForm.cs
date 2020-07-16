@@ -39,20 +39,26 @@ namespace NoteAppUI
 			{
 				CategoryComboBox.Items.Add(category);
 			}
+
+			CategoryComboBox.SelectedItem = "All";
 		}
 
 		
 		private void NoteListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
+			
+
 			if (selectedIndex > -1)
 			{
-				TitleLabel.Text = _categoryNoteList[selectedIndex].Title;
-				NoteTextBox.Text = _categoryNoteList[selectedIndex].Text;
-				CategoryLabel.Text = "Category: " +
-					_categoryNoteList[selectedIndex].Category.ToString();
-				CreatedDateTimePicker.Value = _categoryNoteList[selectedIndex].Created;
-				ModifiedDateTimePicker.Value = _categoryNoteList[selectedIndex].Modified;
+				if(CategoryComboBox.SelectedItem.ToString() == "All")
+				{
+					ShowNoteInfo(_project.NoteList, selectedIndex);
+				}
+				else
+				{
+					ShowNoteInfo(_categoryNoteList, selectedIndex);
+				}
 			}
 		}
 
@@ -104,7 +110,6 @@ namespace NoteAppUI
 				_project.NoteList.Insert(selectedIndex, updateNote);
 				_project.NoteList = _project.SortNoteList();
 				_project.CurrentNote = updateNote;
-
 
 				NoteListBox.Items.Insert(0, updateNote.Title);
 
@@ -165,18 +170,22 @@ namespace NoteAppUI
 						NoteListBox.Items.Add(note.Title);
 					}
 				}
+				NoteListBox.SelectedIndex = 0;
 			}
 			else
 			{
-				NoteListBox.Items.Clear();
-				_categoryNoteList = _project.SortNoteList();
-
-				foreach (Note note in _categoryNoteList)
+				if (_project != null)
 				{
-					NoteListBox.Items.Add(note.Title);
+					NoteListBox.Items.Clear();
+					_categoryNoteList = _project.SortNoteList();
+
+					foreach (Note note in _categoryNoteList)
+					{
+						NoteListBox.Items.Add(note.Title);
+					}
+					NoteListBox.SelectedIndex = 0;
 				}
 			}
-			NoteListBox.SelectedIndex = 0;
 		}
 
 		private bool IsNoteExists(int selectedIndex)
@@ -217,7 +226,7 @@ namespace NoteAppUI
 			}
 
 			DialogResult result = MessageBox.Show("Do you really want delete this note: " +
-				_project.NoteList[selectedIndex].Title, "Message",
+				_project.NoteList[selectedIndex].Title, "Deletion",
 					MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
 			if (result == DialogResult.OK)
@@ -243,12 +252,24 @@ namespace NoteAppUI
 					CreatedDateTimePicker.Value = DateTime.Now;
 					ModifiedDateTimePicker.Value = DateTime.Now;
 				}
-
 				_categoryNoteList = _project.NoteList;
 				NoteListBox.Items.RemoveAt(selectedIndex);
-				NoteListBox.SelectedIndex = 0;
+				if (NoteListBox.Items.Count > 0)
+				{
+					NoteListBox.SelectedIndex = 0;
+				}
 				NoteApp.ProjectManager.SaveToFile(_project, NoteApp.ProjectManager.DefaultPath);
 			}
+		}
+
+		private void ShowNoteInfo(List<Note> noteList, int selectedIndex)
+		{
+			TitleLabel.Text = noteList[selectedIndex].Title;
+			NoteTextBox.Text = noteList[selectedIndex].Text;
+			CategoryLabel.Text = "Category: " +
+				noteList[selectedIndex].Category.ToString();
+			CreatedDateTimePicker.Value = noteList[selectedIndex].Created;
+			ModifiedDateTimePicker.Value = noteList[selectedIndex].Modified;
 		}
 	}
 }

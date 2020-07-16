@@ -46,7 +46,7 @@ namespace NoteApp
 		/// </summary>
 		public static Project LoadFromFile(string filename)
 		{
-            Project project = null;
+            Project project;
 
 			try
 			{
@@ -68,6 +68,10 @@ namespace NoteApp
 			catch(JsonException)
             { //TODO: +если файл не существует, то будет вылетать другой тип исключения
                 project = new Project();
+			}
+			if(project == null)
+			{
+				project = new Project();
 			}
 			return project;
 		}

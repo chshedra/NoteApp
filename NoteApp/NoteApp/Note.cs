@@ -136,7 +136,7 @@ namespace NoteApp
         public int CompareTo(object obj)
         {
             Note note = obj as Note;
-            return this.Modified.CompareTo(note.Modified);
+            return note.Modified.CompareTo(this.Modified);
         }
     }
 }

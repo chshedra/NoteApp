@@ -77,18 +77,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -105,28 +105,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\13787.png" />
+    <None Include="Resources\Image1.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\загружено %281%29.png" />
+    <None Include="Resources\file_edit %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kisspng-computer-icons-json-delete-icon-5b4b9d7dccad61.4160090415316821738384.jpg" />
+    <None Include="Resources\file_add %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kisspng-computer-icons-json-delete-icon-5b4b9d7dccad61.41600904153168217383841.jpg" />
+    <Resource Include="Resources\file_delete %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Files-Delete-File-icon.png" />
+    <None Include="Resources\61776.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\computer-icons-chart-infograph-png-clip-art-thumbnail.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EditIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\contract-signing-2-512.png" />
+    <None Include="Resources\large.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

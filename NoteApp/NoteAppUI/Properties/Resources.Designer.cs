@@ -63,9 +63,9 @@ namespace NoteAppUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13787 {
+        internal static System.Drawing.Bitmap _61776 {
             get {
-                object obj = ResourceManager.GetObject("13787", resourceCulture);
+                object obj = ResourceManager.GetObject("_61776", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace NoteAppUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap computer_icons_chart_infograph_png_clip_art_thumbnail {
+        internal static System.Drawing.Bitmap file_add__1_ {
             get {
-                object obj = ResourceManager.GetObject("computer-icons-chart-infograph-png-clip-art-thumbnail", resourceCulture);
+                object obj = ResourceManager.GetObject("file_add__1_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace NoteAppUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap contract_signing_2_512 {
+        internal static System.Drawing.Bitmap file_delete__1_ {
             get {
-                object obj = ResourceManager.GetObject("contract-signing-2-512", resourceCulture);
+                object obj = ResourceManager.GetObject("file_delete__1_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace NoteAppUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditIcon {
+        internal static System.Drawing.Bitmap file_edit__1_ {
             get {
-                object obj = ResourceManager.GetObject("EditIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("file_edit__1_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,39 +103,9 @@ namespace NoteAppUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Files_Delete_File_icon {
+        internal static System.Drawing.Bitmap large {
             get {
-                object obj = ResourceManager.GetObject("Files-Delete-File-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap kisspng_computer_icons_json_delete_icon_5b4b9d7dccad61_4160090415316821738384 {
-            get {
-                object obj = ResourceManager.GetObject("kisspng-computer-icons-json-delete-icon-5b4b9d7dccad61.4160090415316821738384", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap kisspng_computer_icons_json_delete_icon_5b4b9d7dccad611 {
-            get {
-                object obj = ResourceManager.GetObject("kisspng-computer-icons-json-delete-icon-5b4b9d7dccad611", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap загружено__1_ {
-            get {
-                object obj = ResourceManager.GetObject("загружено (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

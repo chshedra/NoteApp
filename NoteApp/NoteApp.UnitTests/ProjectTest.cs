@@ -16,20 +16,20 @@ namespace NoteApp.UnitTests
 		private void Project_Init()
 		{
 			_project = new Project();
-			_project.NoteList.Add(new Note());
+			_project.Notes.Add(new Note());
 		}
 
 
-		[Test(Description ="Позитивный тест сеттера свойства NoteList")]
+		[Test(Description ="Позитивный тест сеттера свойства Notes")]
 		public void TestNoteList_CorrectValue()
 		{
 			Project_Init();
 			var expected = new List<Note>();
-			expected.Add(_project.NoteList[0]);
+			expected.Add(_project.Notes[0]);
 			var actual = _project;
 
-			Assert.AreEqual(expected, actual.NoteList, 
-				"Свойство NoteList устанавливает или возвращает неправильное название");
+			Assert.AreEqual(expected, actual.Notes, 
+				"Свойство Notes устанавливает или возвращает неправильное название");
 		}
 
 		[Test(Description = "Позитивный тест сеттера CurrentNote")]
@@ -40,7 +40,7 @@ namespace NoteApp.UnitTests
 			_project.CurrentNote = expected;
 			var actual = _project.CurrentNote;
 
-			Assert.AreEqual(expected, _project.CurrentNote, "Свойство NoteList устанавливает " +
+			Assert.AreEqual(expected, _project.CurrentNote, "Свойство Notes устанавливает " +
 				"или возвращает неправильное название");
 		}
 
@@ -51,18 +51,18 @@ namespace NoteApp.UnitTests
 			var expected = _project;
 			for(int i = 0; i < 5; i++)
 			{
-				expected.NoteList.Add(new Note());
+				expected.Notes.Add(new Note());
 			}
 
 			var actual = _project;
-			actual.NoteList[1].Title = "ChangedTitle";
-			actual.NoteList[3].Title = "ChangedTitle";
+			actual.Notes[1].Title = "ChangedTitle";
+			actual.Notes[3].Title = "ChangedTitle";
 
-			actual.NoteList = actual.SortNoteList();
+			actual.Notes = actual.SortNoteList();
 
 			for (int i = 0; i < 5; i++)
 			{
-				Assert.AreEqual(expected.NoteList[i].Created, actual.NoteList[i].Created,
+				Assert.AreEqual(expected.Notes[i].Created, actual.Notes[i].Created,
 					"Функция SortNoteList неправильно сортирует список");
 			}
 		}
@@ -76,21 +76,21 @@ namespace NoteApp.UnitTests
 			var expected = _project;
 			for (int i = 0; i < 5; i++)
 			{
-				expected.NoteList.Add(new Note());
+				expected.Notes.Add(new Note());
 			}
 
 			var actual = _project;
-			actual.NoteList[1].Title = "ChangedTitle";
-			actual.NoteList[3].Title = "ChangedTitle";
+			actual.Notes[1].Title = "ChangedTitle";
+			actual.Notes[3].Title = "ChangedTitle";
 			var anotherCategory = new Note();
 			anotherCategory.Category = NoteCategory.Documents;
 
 
-			actual.NoteList = actual.SortNoteList(NoteCategory.Other);
+			actual.Notes = actual.SortNoteList(NoteCategory.Other);
 
 			for (int i = 0; i < 5; i++)
 			{
-				Assert.AreEqual(expected.NoteList[i].Created, actual.NoteList[i].Created,
+				Assert.AreEqual(expected.Notes[i].Created, actual.Notes[i].Created,
 					"Функция SortNoteList неправильно сортирует список");
 			}
 		}

@@ -14,7 +14,7 @@ namespace NoteApp
 		/// <summary>
 		/// Устанавливает и возвращает список объектов класса Note
 		/// </summary>
-		public List<Note> NoteList { get; set; } = new List<Note>(); //TODO: не правильно указывать название коллекции в имени поля. Просто заметки в множественном числе. Исправить здесь и везде ниже
+		public List<Note> Notes { get; set; } = new List<Note>(); //TODO: +не правильно указывать название коллекции в имени поля. Просто заметки в множественном числе. Исправить здесь и везде ниже
 
         public Note CurrentNote { get; set; }
 
@@ -24,8 +24,8 @@ namespace NoteApp
 		/// <returns>List<Note></Note></returns>
 		public List<Note> SortNoteList()
         {
-			NoteList.Sort();
-			return NoteList;
+			Notes.Sort();
+			return Notes;
 		}
 
 		/// <summary>
@@ -36,7 +36,7 @@ namespace NoteApp
 		public List<Note> SortNoteList(NoteCategory category)
         {
 			List<Note> categoryListNote = new List<Note>();
-			foreach (Note note in NoteList)
+			foreach (Note note in Notes)
 			{
 				if (note.Category == category)
 				{

@@ -12,7 +12,7 @@ using NoteApp;
 namespace NoteAppUI
 {
     //TODO: +зачем на форме сделаны две панели? Из-за них нарушены расстояния между элементами
-    //TODO: ок, теперь зачем на форме одна панель?
+    //TODO: +ок, теперь зачем на форме одна панель?
     public partial class NoteForm : Form
     {
         /// <summary>
@@ -38,7 +38,7 @@ namespace NoteAppUI
 					EditTextBox.Text = _note.Text;
 					EditCategoryComboBox.SelectedItem = _note.Category;
 					EditModifiedDateTimePicker.Value = _note.Modified;
-					EditCreatedTimeDateTimePicker.Value = _note.Created;
+					EditCreatedDateTimePicker.Value = _note.Created;
 				}
 			}
 			}
@@ -60,7 +60,7 @@ namespace NoteAppUI
 		{
 			try
 			{
-				_note.Title = (String.IsNullOrWhiteSpace(EditTitleTextBox.Text)) 
+				Note.Title = (String.IsNullOrWhiteSpace(EditTitleTextBox.Text)) 
 				? "Без названия"
 				: EditTitleTextBox.Text;
 
@@ -80,11 +80,6 @@ namespace NoteAppUI
 			this.Close();
 		}
 
-		private void EditTextBox_TextChanged(object sender, EventArgs e)
-		{
-			_note.Text = EditTextBox.Text;
-		}
-
 		private void EditTitleTextBox_TextChanged(object sender, EventArgs e)
 		{
 			EditTitleTextBox.BackColor = (EditTitleTextBox.Text.Length > 50) 
@@ -92,9 +87,14 @@ namespace NoteAppUI
 				: Color.White;
 		}
 
+		private void EditTextBox_TextChanged(object sender, EventArgs e)
+		{
+			Note.Text = EditTextBox.Text;
+		}
+
 		private void EditCategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			_note.Category = (NoteApp.NoteCategory)EditCategoryComboBox.SelectedItem;
+			Note.Category = (NoteApp.NoteCategory)EditCategoryComboBox.SelectedItem;
 		}
 	}
 }

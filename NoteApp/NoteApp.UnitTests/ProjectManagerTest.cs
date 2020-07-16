@@ -13,12 +13,25 @@ namespace NoteApp.UnitTests
     [TestFixture]
 	class ProjectManagerTest
 	{
-        //TODO: плохое название. Путь до чего?
-        private string _location = Path.GetDirectoryName
+        //TODO: +плохое название. Путь до чего?
+		/// <summary>
+		/// Путь до  эталонного файла
+		/// </summary>
+        private string _etalonFileLocation = Path.GetDirectoryName
 			(Assembly.GetExecutingAssembly().Location) + "//TestData//TestData.txt";
+
+		/// <summary>
+		/// Путь до создаваемого файла для сохранения данных
+		/// </summary>
 		private string _savePath = Path.GetDirectoryName
 			(Assembly.GetExecutingAssembly().Location) + "//TestData//SaveTestData.txt";
-		
+
+		/// <summary>
+		/// Путь до эталонного поврежденного файла
+		/// </summary>
+		private string _etalonDamageFile = Path.GetDirectoryName
+			(Assembly.GetExecutingAssembly().Location) + "//TestData//DamageFile.txt";
+
 
 		//TODO: +именование метода
 		private Project InitProject()
@@ -26,29 +39,28 @@ namespace NoteApp.UnitTests
 			var project = new Project();
 			var note = new Note("Name",null, NoteCategory.Other, 
 				new DateTime(), new DateTime());
-			project.NoteList.Add(note);
+			project.Notes.Add(note);
 			return project;
 		}
-
 
 		[Test(Description = "Позитивный тест метод LoadFromFile с существующим путем." +
 			"Должен вернуть проект со значениями")]
 		public void TestLoadFromFile_ExistentPath()
 		{
 			var expected = InitProject();
-            var actual = ProjectManager.LoadFromFile(_location);
+            var actual = ProjectManager.LoadFromFile(_etalonFileLocation);
 
 			Assert.AreEqual(expected.CurrentNote, actual.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
-			Assert.AreEqual(expected.NoteList[0].Title, actual.NoteList[0].Title,
+			Assert.AreEqual(expected.Notes[0].Title, actual.Notes[0].Title,
 				"Метод LoadFromFile загружает неправильные данныe");
-			Assert.AreEqual(expected.NoteList[0].Text, actual.NoteList[0].Text,
+			Assert.AreEqual(expected.Notes[0].Text, actual.Notes[0].Text,
 				"Метод LoadFromFile загружает неправильные данныe");
-			Assert.AreEqual(expected.NoteList[0].Category, actual.NoteList[0].Category,
+			Assert.AreEqual(expected.Notes[0].Category, actual.Notes[0].Category,
 				"Метод LoadFromFile загружает неправильные данныe");
-			Assert.AreEqual(expected.NoteList[0].Created, actual.NoteList[0].Created,
+			Assert.AreEqual(expected.Notes[0].Created, actual.Notes[0].Created,
 				"Метод LoadFromFile загружает неправильные данныe");
-			Assert.AreEqual(expected.NoteList[0].Modified, actual.NoteList[0].Modified,
+			Assert.AreEqual(expected.Notes[0].Modified, actual.Notes[0].Modified,
 				"Метод LoadFromFile загружает неправильные данныe");
 
 		}
@@ -64,7 +76,7 @@ namespace NoteApp.UnitTests
 
 			Assert.AreEqual(expected.CurrentNote, actual.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
-			Assert.AreEqual(expected.NoteList, actual.NoteList, "Метод LoadFromFile " +
+			Assert.AreEqual(expected.Notes, actual.Notes, "Метод LoadFromFile " +
 				"загружает неправильные данный");
 		}
 
@@ -73,23 +85,12 @@ namespace NoteApp.UnitTests
 		public void TestLoadFromFile_DamageFile()
 		{
 			var expected = new Project();
-
-			if(!File.Exists(_savePath))
-			{
-				File.Create(_savePath);
-			}
-            //TODO: я же говорил на митинге - не надо самому создавать тестовые файлы внутри теста. Они должны быть готовы и добавлены в проект
-            using (FileStream fstream = new FileStream(_savePath, FileMode.OpenOrCreate))
-			{
-				byte[] array = System.Text.Encoding.Default.GetBytes("SomeData");
-				fstream.Write(array, 0, array.Length);
-			}
-
-			var actual = ProjectManager.LoadFromFile(_savePath);
+            //TODO:+ я же говорил на митинге - не надо самому создавать тестовые файлы внутри теста. Они должны быть готовы и добавлены в проект
+			var actual = ProjectManager.LoadFromFile(_etalonDamageFile);
 
 			Assert.AreEqual(actual.CurrentNote, expected.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
-			Assert.AreEqual(actual.NoteList, expected.NoteList, "Метод LoadFromFile " +
+			Assert.AreEqual(actual.Notes, expected.Notes, "Метод LoadFromFile " +
 				"загружает неправильные данный");
 		}
 
@@ -105,7 +106,7 @@ namespace NoteApp.UnitTests
 
 			ProjectManager.SaveToFile(project, _savePath);
 
-			var expected = File.ReadAllText(_location);
+			var expected = File.ReadAllText(_etalonFileLocation);
 			var actual = File.ReadAllText(_savePath);
 
 			Assert.AreEqual(expected, actual, "Метод SaveToFile сохраняет неверные данные");

@@ -10,11 +10,11 @@ using NoteApp;
 
 namespace NoteApp.UnitTests
 {
-	//TODO: +неправильная работа с эталонными файлами - файлы не копируются в выходную папку, а сами файлы пустые
-	[TestFixture]
+    [TestFixture]
 	class ProjectManagerTest
 	{
-		private string _location = Path.GetDirectoryName
+        //TODO: плохое название. Путь до чего?
+        private string _location = Path.GetDirectoryName
 			(Assembly.GetExecutingAssembly().Location) + "//TestData//TestData.txt";
 		private string _savePath = Path.GetDirectoryName
 			(Assembly.GetExecutingAssembly().Location) + "//TestData//SaveTestData.txt";
@@ -36,8 +36,7 @@ namespace NoteApp.UnitTests
 		public void TestLoadFromFile_ExistentPath()
 		{
 			var expected = InitProject();
-			//TODO: +не должно в тестировании загрузки файла использоваться сохранение файла
-			var actual = ProjectManager.LoadFromFile(_location);
+            var actual = ProjectManager.LoadFromFile(_location);
 
 			Assert.AreEqual(expected.CurrentNote, actual.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
@@ -61,8 +60,7 @@ namespace NoteApp.UnitTests
 			var path = "ProjectManager.DefaultPath";
 
 			var expected = new Project();
-			//TODO: +опять тестирование загрузки файла через сохранение файла - неправильно
-			var actual = ProjectManager.LoadFromFile(path);
+            var actual = ProjectManager.LoadFromFile(path);
 
 			Assert.AreEqual(expected.CurrentNote, actual.CurrentNote, "Метод LoadFromFile " +
 				"загружает неправильные данный");
@@ -80,8 +78,8 @@ namespace NoteApp.UnitTests
 			{
 				File.Create(_savePath);
 			}
-
-			using (FileStream fstream = new FileStream(_savePath, FileMode.OpenOrCreate))
+            //TODO: я же говорил на митинге - не надо самому создавать тестовые файлы внутри теста. Они должны быть готовы и добавлены в проект
+            using (FileStream fstream = new FileStream(_savePath, FileMode.OpenOrCreate))
 			{
 				byte[] array = System.Text.Encoding.Default.GetBytes("SomeData");
 				fstream.Write(array, 0, array.Length);

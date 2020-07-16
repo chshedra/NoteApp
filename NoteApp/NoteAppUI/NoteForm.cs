@@ -12,10 +12,10 @@ using NoteApp;
 namespace NoteAppUI
 {
     //TODO: +зачем на форме сделаны две панели? Из-за них нарушены расстояния между элементами
+    //TODO: ок, теперь зачем на форме одна панель?
     public partial class NoteForm : Form
-    { //TODO: +xml
-
-		/// <summary>
+    {
+        /// <summary>
 		/// Объект класса Note для редактирования заметки
 		/// </summary>
         private Note _note = new Note();

@@ -11,12 +11,11 @@ using NoteApp;
 
 namespace NoteAppUI
 {
-    //TODO: +кнопки на форме не плоские, иконки с белым фоном, а не прозрачным
-    //TODO: +не везде между контролами стандартные расстояния
+    //TODO: если удалить последнюю заметку, она остается отображаемой на правой панели
+    //TODO: создаю три заметки в одной категории, отображаю только эту категорию. Редактирую у любой из заметок категорию - после закрытия окна заметка с другой категорией отображается в списке
     public partial class MainForm : Form
-    { //TODO: +xml
-
-		/// <summary>
+    {
+        /// <summary>
 		/// Объект класса Project для хранения заметок
 		/// </summary>
         private Project _project;
@@ -33,7 +32,6 @@ namespace NoteAppUI
 		{
 			InitializeComponent();
 
-            //TODO: +почему подписка здесь, а не в дизайнере? Все подписки надо делать через дизайнер, здесь же только логика работы формы
 			CategoryComboBox.Items.Add("All");
 			foreach (NoteCategory category in Enum.GetValues(typeof (NoteCategory)))
 			{
@@ -46,10 +44,10 @@ namespace NoteAppUI
 		
 		private void NoteListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var selectedIndex = NoteListBox.SelectedIndex;
-			
+			var selectedIndex = NoteListBox.SelectedIndex; //TODO: больше одной пустой строки не используется
 
-			if (selectedIndex > -1)
+
+            if (selectedIndex > -1)
 			{
 				if(CategoryComboBox.SelectedItem.ToString() == "All")
 				{
@@ -120,8 +118,8 @@ namespace NoteAppUI
 		}
 
 		private void RemoveButton_Click(object sender, EventArgs e)
-        { //TODO: +код проверки выбранной заметки дублируется с кодом выше. Вынести в метод\
-			DeleteOperation();
+        { //TODO: что за operation? Название должно отражать задачу, которую делает метод
+            DeleteOperation();
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -187,13 +185,13 @@ namespace NoteAppUI
 				}
 			}
 		}
-
-		private bool IsNoteExists(int selectedIndex)
+        //TODO: xml комментарии для всех методов, кроме обработчиков
+        //TODO: сначала в классе должны идти поля, затем свойства, конструктор, методы и потом все обработчики. Пересортировать методы правильно
+        private bool IsNoteExists(int selectedIndex)
 		{
 			if (selectedIndex < 0)
 			{
-				//TODO: +часть сообщений на русском, часть на английском. Сделать единообразно.
-				MessageBox.Show("Select the note", "Deletion error",
+                MessageBox.Show("Select the note", "Deletion error",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				return false;
@@ -220,8 +218,8 @@ namespace NoteAppUI
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
 
-			if (IsNoteExists(selectedIndex) == false)
-			{
+			if (IsNoteExists(selectedIndex) == false) //TODO: не сравнивают с булевым значением. Просто поставь отрицание перед методом
+            {
 				return;
 			}
 

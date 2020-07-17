@@ -11,8 +11,6 @@ using NoteApp;
 
 namespace NoteAppUI
 {
-    //TODO: если удалить последнюю заметку, она остается отображаемой на правой панели
-    //TODO: создаю три заметки в одной категории, отображаю только эту категорию. Редактирую у любой из заметок категорию - после закрытия окна заметка с другой категорией отображается в списке
     public partial class MainForm : Form
     {
         /// <summary>
@@ -71,7 +69,7 @@ namespace NoteAppUI
 		{
 			var selectedIndex = NoteListBox.SelectedIndex;
 
-			if (!IsNoteExists(selectedIndex)) //TODO: +не сравнивают с булевым значением. Просто поставь отрицание перед методом
+			if (!IsNoteExists(selectedIndex))
 			{
 				return;
 			}
@@ -148,7 +146,7 @@ namespace NoteAppUI
 
 		private void NoteListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var selectedIndex = NoteListBox.SelectedIndex; //TODO: +больше одной пустой строки не используется
+			var selectedIndex = NoteListBox.SelectedIndex;
 
             if (selectedIndex > -1)
 			{
@@ -217,7 +215,7 @@ namespace NoteAppUI
 		}
 
 		private void RemoveButton_Click(object sender, EventArgs e)
-        { //TODO: +что за operation? Название должно отражать задачу, которую делает метод
+        {
             DeleteNote();
 		}
 
@@ -269,8 +267,7 @@ namespace NoteAppUI
 				NoteListBox.SelectedIndex = 0;
 			}
 		}
-        //TODO: +xml комментарии для всех методов, кроме обработчиков
-        //TODO: +сначала в классе должны идти поля, затем свойства, конструктор, методы и потом все обработчики. Пересортировать методы правильно
+       
 		private void MainForm_KeyDown(object sender, KeyEventArgs e)
 		{
 			if(e.KeyCode.ToString() == "Delete")

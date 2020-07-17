@@ -13,8 +13,7 @@ namespace NoteApp.UnitTests
     [TestFixture]
 	class ProjectManagerTest
 	{
-        //TODO: +плохое название. Путь до чего?
-		/// <summary>
+        /// <summary>
 		/// Путь до  эталонного файла
 		/// </summary>
         private string _etalonFileLocation = Path.GetDirectoryName
@@ -32,8 +31,6 @@ namespace NoteApp.UnitTests
 		private string _etalonDamageFile = Path.GetDirectoryName
 			(Assembly.GetExecutingAssembly().Location) + "//TestData//DamageFile.txt";
 
-
-		//TODO: +именование метода
 		private Project InitProject()
 		{
 			var project = new Project();
@@ -85,7 +82,7 @@ namespace NoteApp.UnitTests
 		public void TestLoadFromFile_DamageFile()
 		{
 			var expected = new Project();
-            //TODO:+ я же говорил на митинге - не надо самому создавать тестовые файлы внутри теста. Они должны быть готовы и добавлены в проект
+            
 			var actual = ProjectManager.LoadFromFile(_etalonDamageFile);
 
 			Assert.AreEqual(actual.CurrentNote, expected.CurrentNote, "Метод LoadFromFile " +

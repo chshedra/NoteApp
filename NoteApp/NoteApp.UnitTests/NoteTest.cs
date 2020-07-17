@@ -13,7 +13,6 @@ namespace NoteApp.UnitTests
     {
         private Note _note;
 
-        //TODO: +неправильное именование метода
         public void NoteInit()
         {
             _note = new Note();

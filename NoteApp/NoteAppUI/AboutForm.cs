@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NoteAppUI
-{//TODO: +иконку окна убрать
+{
 	public partial class AboutForm : Form
 	{
 		public AboutForm()

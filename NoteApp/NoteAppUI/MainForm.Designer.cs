@@ -196,7 +196,7 @@
 			// ModifiedDateTimePicker
 			// 
 			this.ModifiedDateTimePicker.Enabled = false;
-			this.ModifiedDateTimePicker.Location = new System.Drawing.Point(234, 70);
+			this.ModifiedDateTimePicker.Location = new System.Drawing.Point(234, 66);
 			this.ModifiedDateTimePicker.Name = "ModifiedDateTimePicker";
 			this.ModifiedDateTimePicker.Size = new System.Drawing.Size(123, 20);
 			this.ModifiedDateTimePicker.TabIndex = 8;
@@ -204,7 +204,7 @@
 			// CreatedDateTimePicker
 			// 
 			this.CreatedDateTimePicker.Enabled = false;
-			this.CreatedDateTimePicker.Location = new System.Drawing.Point(48, 70);
+			this.CreatedDateTimePicker.Location = new System.Drawing.Point(48, 66);
 			this.CreatedDateTimePicker.Name = "CreatedDateTimePicker";
 			this.CreatedDateTimePicker.Size = new System.Drawing.Size(124, 20);
 			this.CreatedDateTimePicker.TabIndex = 7;

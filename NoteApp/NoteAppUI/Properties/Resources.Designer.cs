@@ -63,16 +63,6 @@ namespace NoteAppUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _61776 {
-            get {
-                object obj = ResourceManager.GetObject("_61776", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap file_add__1_ {
             get {
                 object obj = ResourceManager.GetObject("file_add__1_", resourceCulture);
@@ -96,16 +86,6 @@ namespace NoteAppUI.Properties {
         internal static System.Drawing.Bitmap file_edit__1_ {
             get {
                 object obj = ResourceManager.GetObject("file_edit__1_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap large {
-            get {
-                object obj = ResourceManager.GetObject("large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -67,7 +67,7 @@ namespace NoteAppUI
 			}
 			catch(ArgumentException ex)
 			{
-				MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, 
+				MessageBox.Show(ex.Message, "Exeption", MessageBoxButtons.OK, 
 					MessageBoxIcon.Warning);
 			}
 		}

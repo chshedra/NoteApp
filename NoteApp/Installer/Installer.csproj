@@ -89,7 +89,10 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)packages\Tools.InnoSetup.6.0.5\tools\ISCC.exe" $(SolutionDir)Installer\NoteAppSetup.iss
+    <PostBuildEvent>xcopy $(SolutionDir)NoteAppUI\$(OutDir)*.dll  $(SolutionDir)Installer\$(OutDir)
+xcopy $(SolutionDir)NoteAppUI\$(OutDir)*.exe  $(SolutionDir)Installer\$(OutDir)
+xcopy $(ProjectDir)..\Installer\*.ico  $(SolutionDir)Installer\$(OutDir)
+"$(SolutionDir)packages\Tools.InnoSetup.6.0.5\tools\ISCC.exe" $(SolutionDir)Installer\NoteAppSetup.iss
 cd..
 rmdir /s /q $(SolutionDir)Installer\$(OutDir)</PostBuildEvent>
   </PropertyGroup>

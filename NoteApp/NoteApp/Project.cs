@@ -14,7 +14,7 @@ namespace NoteApp
 		/// <summary>
 		/// Устанавливает и возвращает список объектов класса Note
 		/// </summary>
-		public List<Note> Notes { get; set; } = new List<Note>(); //TODO: +не правильно указывать название коллекции в имени поля. Просто заметки в множественном числе. Исправить здесь и везде ниже
+		public List<Note> Notes { get; set; } = new List<Note>();
 
         public Note CurrentNote { get; set; }
 
